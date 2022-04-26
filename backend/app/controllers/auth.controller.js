@@ -1,17 +1,16 @@
-const db = require("../models");
+const User = require("../models/user.model");
 const config = require("../config/auth.config");
-const User = db.user;
+// const User = db.user;
 // const Role = db.role;
-const Op = db.Sequelize.Op;
+// const Op = db.Sequelize.Op;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 exports.signup = (req, res) => {
   // Save User to Database
-  User.create({
-    username: req.body.username,
-    status: 0,
-    password: bcrypt.hashSync(req.body.password, 8)
-  })
+  User.create(
+    req.body.username,
+    bcrypt.hashSync(req.body.password, 8)
+  )
   .then(()=>{
     res.status(201).send({
       message: "User created successfully!"
@@ -42,18 +41,16 @@ exports.signup = (req, res) => {
     });
 };
 exports.signin = (req, res) => {
-  User.findOne({
-    where: {
-      username: req.body.username
-    }
-  })
+   User.findOne(
+      req.body.username
+    )
     .then(user => {
-      if (!user) {
+      if (!user.rows[0]) {
         return res.status(404).send({ message: "User Not found." });
       }
       var passwordIsValid = bcrypt.compareSync(
         req.body.password,
-        user.password
+        user.rows[0].password
       );
       if (!passwordIsValid) {
         return res.status(401).send({
@@ -70,9 +67,9 @@ exports.signin = (req, res) => {
         //   authorities.push("ROLE_" + roles[i].name.toUpperCase());
         // }
         res.status(200).send({
-          id: user.id,
-          username: user.username,
-          role: user.status,
+          id: user.rows[0].id,
+          username: user.rows[0].username,
+          role: user.rows[0].status,
           accessToken: token
         });
       // });

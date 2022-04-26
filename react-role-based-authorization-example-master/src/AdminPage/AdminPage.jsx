@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { userService } from '@/_services';
+// import { userService } from '@/_services';
 
 class AdminPage extends React.Component {
     constructor(props) {
@@ -12,7 +12,7 @@ class AdminPage extends React.Component {
     }
 
     componentDidMount() {
-        userService.getAll().then(users => this.setState({ users }));
+        // userService.getAll().then(users => this.setState({ users }));
     }
 
     render() {
@@ -23,13 +23,13 @@ class AdminPage extends React.Component {
                 <p>This page can only be accessed by active users.</p>
                 <div>
                     All users from secure (admin only) api end point:
-                    {users &&
+                    {/* {users &&
                         <ul>
                             {users.map(user =>
                                 <li key={user.id}>{user.firstName} {user.lastName}</li>
                             )}
                         </ul>
-                    }
+                    } */}
                 </div>
             </div>
         );

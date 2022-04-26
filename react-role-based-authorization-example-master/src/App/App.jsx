@@ -7,7 +7,7 @@ import { PrivateRoute } from '@/_components';
 import { HomePage } from '@/HomePage';
 import { AdminPage } from '@/AdminPage';
 import { LoginPage } from '@/LoginPage';
-import  RegisterPage  from '../_components/RegisterPage';
+import  { RegisterPage } from '@/RegisterPage';
 
 
 class App extends React.Component {
@@ -25,7 +25,7 @@ class App extends React.Component {
         if(user){
             this.setState({
                 currentUser: user,
-                isAdmin: user && user.status
+                isAdmin: user && user.status === 1
             });
         }
     }
@@ -56,7 +56,7 @@ class App extends React.Component {
                                     <PrivateRoute exact path="/" component={HomePage} />
                                     <PrivateRoute path="/admin" roles={[Role.Admin]} component={AdminPage} />
                                     <Route path="/login" component={LoginPage} />
-                                    <Route path="/register" element={<RegisterPage/>} />
+                                    <Route path="/register" component={RegisterPage} />
                                 </div>
                             </div>
                         </div>

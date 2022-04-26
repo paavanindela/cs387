@@ -1,14 +1,13 @@
-const db = require("../models");
+// const db = require("../models");
 // const ROLES = db.ROLES;
-const User = db.user;
+const User = require("../models/user.model");
 checkDuplicateUsernameOrEmail = (req, res, next) => {
   // Username
-  User.findOne({
-    where: {
-      username: req.body.username
-    }
-  }).then(user => {
-    if (user) {
+  User.findOne(
+  req.body.username
+    ).then(user => {
+    if (user.rows[0]) {
+      
       res.status(400).send({
         message: "Failed! Username is already in use!"
       });

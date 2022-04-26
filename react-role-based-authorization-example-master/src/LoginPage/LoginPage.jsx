@@ -16,10 +16,10 @@ class LoginPage extends React.Component {
     render() {
         return (
             <div>
-                <div className="alert alert-info">
+                {/* <div className="alert alert-info">
                     <strong>Normal User</strong> - U: user P: user<br />
                     <strong>Administrator</strong> - U: admin P: admin
-                </div>
+                </div> */}
                 <h2>Login</h2>
                 <Formik
                     initialValues={{
@@ -40,7 +40,8 @@ class LoginPage extends React.Component {
                                 },
                                 error => {
                                     setSubmitting(false);
-                                    setStatus(error);
+                                    setStatus(error.response.data.message);
+                                    
                                 }
                             );
                     }}
@@ -65,7 +66,7 @@ class LoginPage extends React.Component {
                             {status &&
                                 <div className={'alert alert-danger'}>{status}</div>
                             }
-                            <Link to="/register" className="nav-item nav-link">Register</Link>
+                            <Link to="/register" >Not yet registered? Register here</Link>
                         </Form>
                     )}
                 />

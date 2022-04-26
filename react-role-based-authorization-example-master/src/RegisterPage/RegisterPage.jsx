@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-// import { isEmail } from "validator";
+import { Link } from "react-router-dom";
 import AuthService from "../_services/authentication.service";
 const required = (value) => {
   if (!value) {
@@ -41,6 +41,7 @@ const vpassword = (value) => {
   }
 };
 const RegisterPage = () => {
+  
   const form = useRef();
   const checkBtn = useRef();
   const [username, setUsername] = useState("");
@@ -66,10 +67,11 @@ const RegisterPage = () => {
     setSuccessful(false);
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register(username, email, password).then(
+      AuthService.register(username, password).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
+          
         },
         (error) => {
           const resMessage =
@@ -84,14 +86,16 @@ const RegisterPage = () => {
       );
     }
   };
+  
   return (
     <div className="col-md-12">
       <div className="card card-container">
-        <img
+        {/* <img
           src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
           alt="profile-img"
           className="profile-img-card"
-        />
+        /> */}
+        
         <Form onSubmit={handleRegister} ref={form}>
           {!successful && (
             <div>
@@ -145,8 +149,9 @@ const RegisterPage = () => {
           )}
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>
+        <Link to='/login'>Already registered? Go to login page</Link>
       </div>
     </div>
   );
 };
-export default RegisterPage;
+export { RegisterPage };
