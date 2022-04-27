@@ -26,10 +26,12 @@ class AdminPage extends React.Component {
                     {users &&
                         <ul>
                             {users.map(user =><div>
-                                <li key={user.username}>{user.username} </li>
-                                <button className='form-control' onClick={
+                                <li key={user.username}>{user.username}  {user.role==1?'active':'inactive'} </li>
+
+                                {user.role != 0 && <button className='form-control' onClick={
                                    (user)=> UserService.makeActive(user.username)
-                                }>Make Controller</button>
+                                }>Make Controller</button>}
+                                <button onClick={(user)=> UserService.delete(user.username)} >Delete User</button>
                                 </div>
                             )}
                         </ul>
