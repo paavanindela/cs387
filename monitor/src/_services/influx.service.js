@@ -1,9 +1,11 @@
 import axios from "axios";
+import { authHeader } from "../_helpers/auth-header";
 
 const url = "http://localhost:5000/api/influx/";
 
 const getCpu = (hostList) => {
     return axios.get(url + "cpu",{
+        headers: authHeader(),
         params: {
             hostList: hostList
         }
