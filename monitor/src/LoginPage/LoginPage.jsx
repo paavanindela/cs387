@@ -10,10 +10,10 @@ class LoginPage extends React.Component {
         super(props);
 
         // redirect to home if already logged in
-        // if (AuthService.getCurrentUser()) { 
-        //     history.push('/');
-        //     window.location.reload();
-        // }
+        if (AuthService.getCurrentUser()) { 
+            history.push('/');
+            window.location.reload();
+        }
     }
 
     render() {

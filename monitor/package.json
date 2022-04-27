@@ -23,7 +23,9 @@
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-router-dom": "^6.3.0",
+    "react-spinners": "^0.11.0",
     "react-validation": "^3.0.7",
+    "recharts": "^2.1.9",
     "rxjs": "^7.5.5",
     "sequelize": "^6.19.0",
     "yup": "^0.32.11"

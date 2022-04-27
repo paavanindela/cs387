@@ -8,7 +8,7 @@ import { HomePage } from '@/HomePage';
 import { AdminPage } from '@/AdminPage';
 import { LoginPage } from '@/LoginPage';
 import  { RegisterPage } from '@/RegisterPage';
-
+import {CpuPage} from '@/GraphPage';
 
 class App extends React.Component {
     constructor(props) {
@@ -64,6 +64,7 @@ class App extends React.Component {
                                         </Route>
                                         <Route path="/login" element={<LoginPage />} />
                                         <Route path="/register" element={<RegisterPage />} />
+                                        <Route path="/cpu" element={<CpuPage/>}/>
                                     </Routes>
                                 </div>
                             </div>
