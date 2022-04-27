@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 
 import { history, Role } from '@/_helpers';
 import  AuthService from '../_services/authentication.service';
@@ -53,16 +53,23 @@ class App extends React.Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-6 offset-md-3">
-                                    <PrivateRoute exact path="/" component={HomePage} />
-                                    <PrivateRoute path="/admin" roles={[Role.Admin]} component={AdminPage} />
-                                    <Route path="/login" component={LoginPage} />
-                                    <Route path="/register" component={RegisterPage} />
+                                    <Routes>
+                                        <Route exact path='/' element={<PrivateRoute/>}>
+                                            <Route exact path='/' element={<HomePage/>}/>
+                                        </Route>
+                                        <Route path='/admin' element={<PrivateRoute roles={[Role.Admin]}/>}>
+                                            <Route path='' element={<AdminPage/>}/>
+                                        </Route>
+                                        <Route path="/login" element={<LoginPage />} />
+                                        <Route path="/register" element={<RegisterPage />} />
+                                    </Routes>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </Router>
+            
         );
     }
 }

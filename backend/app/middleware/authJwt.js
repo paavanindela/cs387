@@ -5,6 +5,7 @@ const config = require("../config/auth.config.js");
 const User = require("../models/user.model");
 verifyToken = (req, res, next) => {
   let token = req.headers["x-access-token"];
+  
   if (!token) {
     return res.status(403).send({
       message: "No token provided!"
@@ -21,9 +22,10 @@ verifyToken = (req, res, next) => {
   });
 };
 isAdmin = (req, res, next) => {
-  User.findByPk(req.userId).then(user => {
-
-    if (user.status == 1) {
+  
+  User.findOne(req.userId).then(user => {
+    
+    if (user.rows[0] && user.rows[0].status == 2) {
         next();
         return;
     }
@@ -35,6 +37,22 @@ isAdmin = (req, res, next) => {
     
   });
 };
+isActive = (req, res, next) => {
+  User.findOne(req.username).then(user => {
+
+    if (user.rows[0] && user.rows[0].status == 1) {
+        next();
+        return;
+    }
+      
+      res.status(403).send({
+        message: "Require Active Role!"
+      });
+      return;
+    
+  });
+};
+
 // isModerator = (req, res, next) => {
 //   User.findByPk(req.userId).then(user => {
 //     user.getRoles().then(roles => {

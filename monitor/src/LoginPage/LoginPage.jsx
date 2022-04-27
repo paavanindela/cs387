@@ -3,14 +3,15 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 import AuthService  from '../_services/authentication.service';
+import {history} from '@/_helpers'
 class LoginPage extends React.Component {
     constructor(props) {
         super(props);
 
         // redirect to home if already logged in
-        if (AuthService.getCurrentUser()) { 
-            this.props.history.push('/');
-        }
+        // if (AuthService.getCurrentUser()) { 
+        //     history.push('/');
+        // }
     }
 
     render() {
@@ -35,8 +36,9 @@ class LoginPage extends React.Component {
                         AuthService.login(username, password)
                             .then(
                                 user => {
-                                    const { from } = this.props.location.state || { from: { pathname: "/" } };
-                                    this.props.history.push(from);
+                                    console.log(user)
+                                    // const { from } = this.props.location.state || { from: { pathname: "/" } };
+                                    history.push('/');
                                 },
                                 error => {
                                     setSubmitting(false);

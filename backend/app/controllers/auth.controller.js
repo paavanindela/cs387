@@ -58,7 +58,7 @@ exports.signin = (req, res) => {
           message: "Invalid Password!"
         });
       }
-      var token = jwt.sign({ id: user.id }, config.secret, {
+      var token = jwt.sign({ id: user.rows[0].username }, config.secret, {
         expiresIn: 86400 // 24 hours
       });
       // var authorities = [];
@@ -67,7 +67,7 @@ exports.signin = (req, res) => {
         //   authorities.push("ROLE_" + roles[i].name.toUpperCase());
         // }
         res.status(200).send({
-          id: user.rows[0].id,
+          // id: user.rows[0].id,
           username: user.rows[0].username,
           role: user.rows[0].status,
           accessToken: token

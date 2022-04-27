@@ -32,8 +32,38 @@ async function create(username, password) {
   }
 }
 
+async function findAll() {
+  
+  const rows = await pool.query(
+     "SELECT * FROM controller WHERE status < 2"
+  );
+  // console.log(rows.rows)
+  // const data = helper.emptyOrRows(rows);
+  
+  
+  return {
+    'rows': rows.rows,
+  }
+}
+
+async function makeActive(username) {
+  
+  const rows = await pool.query(
+     "UPDATE controller set status=1 where username = $1",
+     [username]
+  );
+  // console.log(rows.rows)
+  // const data = helper.emptyOrRows(rows);
+  
+  
+  return {
+    'rows': rows.rows,
+  }
+}
+
 module.exports = {
   findOne,
   create, 
-
+  findAll,
+  makeActive,
 }
