@@ -10,7 +10,6 @@ exports.signup = (req, res) => {
   User.create(
     req.body.username,
     bcrypt.hashSync(req.body.password, 8),
-    req.body.influx
   )
   .then(()=>{
     res.status(201).send({

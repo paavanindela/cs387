@@ -33,6 +33,7 @@ class App extends React.Component {
     logout() {
         AuthService.logout();
         history.push('/login');
+        window.location.reload();
     }
 
     render() {

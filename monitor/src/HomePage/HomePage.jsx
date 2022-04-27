@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { userService, authenticationService } from '@/_services';
+// import { userService, authenticationService } from '@/_services';
 import  AuthService  from '../_services/authentication.service'
 class HomePage extends React.Component {
     constructor(props) {
@@ -27,11 +27,11 @@ class HomePage extends React.Component {
                 <p>This page can be accessed by all authenticated users.</p>
                 <div>
                     Current user from secure api end point:
-                    {userFromApi &&
+                    {/* {userFromApi &&
                         <ul>
                             <li>{currentUser.firstName} {currentUser.lastName}</li>
                         </ul>
-                    }
+                    } */}
                 </div>
             </div>
         );

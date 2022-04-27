@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 import AuthService  from '../_services/authentication.service';
 import UserService from '../_services/user.service';
+import { history } from '../_helpers/history';
 class LoginPage extends React.Component {
     constructor(props) {
         super(props);
@@ -11,6 +12,7 @@ class LoginPage extends React.Component {
         // redirect to home if already logged in
         // if (AuthService.getCurrentUser()) { 
         //     history.push('/');
+        //     window.location.reload();
         // }
     }
 
@@ -39,6 +41,7 @@ class LoginPage extends React.Component {
                                     console.log(user)
                                     // const { from } = this.props.location.state || { from: { pathname: "/" } };
                                     history.push('/');
+                                    window.location.reload();
                                 },
                                 error => {
                                     setSubmitting(false);

@@ -71,7 +71,7 @@ const RegisterPage = () => {
     setSuccessful(false);
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register(username, password, isChecked).then(
+      AuthService.register(username, password).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
@@ -114,13 +114,7 @@ const RegisterPage = () => {
                   validations={[required, vusername]}
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="influx">Influx Installed</label>
-              <Input
-              name="influx"
-              type="checkbox"
               
-              onChange = {onChangeInflux}/></div>
               {/* <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <Input
