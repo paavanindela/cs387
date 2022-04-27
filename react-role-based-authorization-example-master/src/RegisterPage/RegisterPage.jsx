@@ -49,6 +49,7 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
   const onChangeUsername = (e) => {
     const username = e.target.value;
     setUsername(username);
@@ -61,13 +62,16 @@ const RegisterPage = () => {
     const password = e.target.value;
     setPassword(password);
   };
+  const onChangeInflux = (e) => {
+    setIsChecked(!isChecked);
+  }
   const handleRegister = (e) => {
     e.preventDefault();
     setMessage("");
     setSuccessful(false);
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register(username, password).then(
+      AuthService.register(username, password, isChecked).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
@@ -110,6 +114,13 @@ const RegisterPage = () => {
                   validations={[required, vusername]}
                 />
               </div>
+              <div className="form-group">
+                <label htmlFor="influx">Influx Installed</label>
+              <Input
+              name="influx"
+              type="checkbox"
+              
+              onChange = {onChangeInflux}/></div>
               {/* <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <Input

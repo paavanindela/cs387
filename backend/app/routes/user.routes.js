@@ -19,9 +19,14 @@ module.exports = function(app) {
 //     [authJwt.verifyToken, authJwt.isModerator],
 //     controller.moderatorBoard
 //   );
-  app.get(
-    "/api/test/admin",
+  app.put(
+    "/api/active",
     [authJwt.verifyToken, authJwt.isAdmin],
-    controller.adminBoard
+    controller.makeActive
+  );
+  app.get(
+    "/api/all",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.getAll
   );
 };

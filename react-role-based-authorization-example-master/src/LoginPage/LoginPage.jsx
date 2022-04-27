@@ -3,6 +3,7 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 import AuthService  from '../_services/authentication.service';
+import UserService from '../_services/user.service';
 class LoginPage extends React.Component {
     constructor(props) {
         super(props);
@@ -57,6 +58,7 @@ class LoginPage extends React.Component {
                                 <Field name="password" type="password" className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} />
                                 <ErrorMessage name="password" component="div" className="invalid-feedback" />
                             </div>
+                            
                             <div className="form-group">
                                 <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Login</button>
                                 {isSubmitting &&

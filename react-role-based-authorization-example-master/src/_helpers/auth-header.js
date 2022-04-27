@@ -4,7 +4,7 @@ export function authHeader() {
     // return authorization header with jwt token
     const currentUser = JSON.parse(localStorage.getItem('user'));
     if (currentUser && currentUser.accessToken) {
-        return { 'x-access-token': user.accessToken };
+        return { 'x-access-token': currentUser.accessToken };
     } else {
         return {};
     }
