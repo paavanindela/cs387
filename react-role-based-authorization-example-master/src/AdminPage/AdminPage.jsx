@@ -1,6 +1,6 @@
 import React from 'react';
 
-// import { userService } from '@/_services';
+ import  UserService  from '../_services/user.service';
 
 class AdminPage extends React.Component {
     constructor(props) {
@@ -12,7 +12,7 @@ class AdminPage extends React.Component {
     }
 
     componentDidMount() {
-        // userService.getAll().then(users => this.setState({ users }));
+        UserService.getAll().then(res => {this.setState( {users: res.data.user.rows} ); }, error => {console.log(error)});
     }
 
     render() {
@@ -23,13 +23,17 @@ class AdminPage extends React.Component {
                 <p>This page can only be accessed by active users.</p>
                 <div>
                     All users from secure (admin only) api end point:
-                    {/* {users &&
+                    {users &&
                         <ul>
-                            {users.map(user =>
-                                <li key={user.id}>{user.firstName} {user.lastName}</li>
+                            {users.map(user =><div>
+                                <li key={user.username}>{user.username} </li>
+                                <button className='form-control' onClick={
+                                   (user)=> UserService.makeActive(user.username)
+                                }>Make Controller</button>
+                                </div>
                             )}
                         </ul>
-                    } */}
+                    }
                 </div>
             </div>
         );

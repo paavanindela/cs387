@@ -17,11 +17,11 @@ async function findOne(username) {
   }
 }
 
-async function create(username, password) {
+async function create(username, password, influx) {
   
   const rows = await pool.query(
-     "INSERT INTO controller (username, password, status) values($1, $2, $3)",
-    [username, password, 0]
+     "INSERT INTO controller (username, password, status, influx) values($1, $2, $3, $4)",
+    [username, password, 0, influx]
   );
   // console.log(rows)
   // const data = helper.emptyOrRows(rows);
