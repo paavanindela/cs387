@@ -1,5 +1,5 @@
 const controller = require("../controllers/host.controller");
-
+const { authJwt } = require("../middleware");
 module.exports = function(app) {
     app.use(function(req, res, next) {
         res.header(
@@ -8,9 +8,9 @@ module.exports = function(app) {
         );
         next();
     });
-    app.get("/api/host", controller.allHost);
-    app.get("/api/host/:hname", controller.oneHost);
-    app.post("/api/host", controller.addHost);
-    app.put("/api/host/:hname", controller.modifyHost);
-    app.delete("/api/host/:hname", controller.deleteHost);
+    app.get("/api/host", [authJwt.verifyToken], controller.allHost);
+    app.get("/api/host/:hname", [authJwt.verifyToken], controller.oneHost);
+    app.post("/api/host", [authJwt.verifyToken, authJwt.isAdmin], controller.addHost);
+    app.put("/api/host/:hname", [authJwt.verifyToken, authJwt.isAdmin], controller.modifyHost);
+    app.delete("/api/host/:hname", [authJwt.verifyToken, authJwt.isAdmin], controller.deleteHost);
 };
