@@ -94,12 +94,6 @@ const RegisterPage = () => {
   return (
     <div className="col-md-12">
       <div className="card card-container">
-        {/* <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        /> */}
-        
         <Form onSubmit={handleRegister} ref={form}>
           {!successful && (
             <div>
@@ -114,18 +108,6 @@ const RegisterPage = () => {
                   validations={[required, vusername]}
                 />
               </div>
-              
-              {/* <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="email"
-                  value={email}
-                  onChange={onChangeEmail}
-                  validations={[required, validEmail]}
-                />
-              </div> */}
               <div className="form-group">
                 <label htmlFor="password">Password</label>
                 <Input
