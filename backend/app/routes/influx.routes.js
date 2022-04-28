@@ -1,4 +1,5 @@
 const controller = require("../controllers/influx.controller");
+const { authJwt } = require("../middleware");
 
 module.exports = function(app) {
     app.use(function(req, res, next) {
@@ -8,5 +9,7 @@ module.exports = function(app) {
         );
         next();
     });
-    app.get("/api/influx/cpu", controller.getCpu);
+    app.get("/api/influx/cpu",
+        [authJwt.verifyToken],
+        controller.getCpu);
 };

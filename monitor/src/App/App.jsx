@@ -22,10 +22,11 @@ class App extends React.Component {
 
     componentDidMount() {
         const user  = AuthService.getCurrentUser();
+        
         if(user){
             this.setState({
                 currentUser: user,
-                isAdmin: user && user.status === 1
+                isAdmin: user && user.role == 2
             });
         }
     }
