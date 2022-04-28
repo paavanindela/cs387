@@ -1,0 +1,19 @@
+const Metric = require("../models/metric.model");
+
+exports.allMetric = (req, res) => {
+    Metric.findAllMetric().then(metric => {
+        res.status(200).send(metric.rows);
+    });
+};
+
+exports.addMetric = (req, res) => {
+    Metric.addMetric(req.body.name).then(() => {
+        res.status(201).send({message: "metric created successfully"});
+    });
+};
+
+exports.deleteMetric = (req, res) => {
+    Metric.deleteMetric(req.body.name).then(() => {
+        res.status(200).send({message: "metric deleted successfully"});
+    });
+};

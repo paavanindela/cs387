@@ -6,7 +6,12 @@ DROP TABLE IF EXISTS ControllerHost CASCADE;
 DROP TABLE IF EXISTS Application CASCADE;
 DROP TABLE IF EXISTS AppAlertType CASCADE;
 DROP TABLE IF EXISTS AppAlert CASCADE;
+DROP TABLE IF EXISTS Metric CASCADE;
 DROP FUNCTION IF EXISTS tf1 CASCADE;
+CREATE TABLE Metric(
+    name varchar(20) not null,
+    PRIMARY KEY(name)
+);
 CREATE TABLE Host(
     hostname varchar(20) not null,
     ipAddress varchar(20) not null check(ipAddress like '%.%.%.%'),

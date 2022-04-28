@@ -12,11 +12,13 @@ async function findOneApp(appid) {
     }
 }
 
-async function findAllApp(hostname) {
-    const rows = await pool.query(
-        "select * from application where hostname = $1",
-        [hostname]
-    );
+async function findAllApp(hnamelist) {
+    query_str = "select * from application where hostname in (";
+    for(i=0;i<hnamelist.length-1;i++){
+        query_str = query_str.concat("'", hnamelist[i], "',");
+    }
+    query_str = query_str.concat("'", hnamelist[hnamelist.length-1], "')");
+    const rows = await pool.query(query_str);
 
     return {
         'rows': rows.rows,
