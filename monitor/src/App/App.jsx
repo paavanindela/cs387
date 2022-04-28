@@ -64,6 +64,10 @@ class App extends React.Component {
                                         <Route path="/login" element={<LoginPage />} />
                                         <Route path="/register" element={<RegisterPage />} />
                                         <Route path="/cpu" element={<CpuPage/>}/>
+                                        <Route path="/host" element={<HostPage/>}>
+                                            <Route path="/host/add" element={<HostAddPage/>}/>
+                                            <Route path="/host/delete" element={<HostDeletePage/>}/>
+                                        </Route>
                                     </Routes>
                                 </div>
                             </div>
