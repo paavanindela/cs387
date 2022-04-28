@@ -23,16 +23,7 @@ class HomePage extends React.Component {
             <div>
                 <h1>Home</h1>
                 <p>You're logged in with React & JWT!!</p>
-                <p>Your role is: <strong>{currentUser.role}</strong>.</p>
-                <p>This page can be accessed by all authenticated users.</p>
-                <div>
-                    Current user from secure api end point:
-                    {/* {userFromApi &&
-                        <ul>
-                            <li>{currentUser.firstName} {currentUser.lastName}</li>
-                        </ul>
-                    } */}
-                </div>
+                <p>Your role is: <strong>{currentUser.role==2?"ADMIN":currentUser.role==1?"CONTROLLER":"INACTIVE"}</strong>.</p>
             </div>
         );
     }

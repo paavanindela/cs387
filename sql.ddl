@@ -13,7 +13,7 @@ CREATE TABLE Metric(
     PRIMARY KEY(name)
 );
 CREATE TABLE Host(
-    hostname varchar(20) not null,
+    hostname varchar(60) not null,
     ipAddress varchar(20) not null check(ipAddress like '%.%.%.%'),
     macAddress varchar(20) check(macAddress like '__:__:__:__:__:__'),
     osType int,
