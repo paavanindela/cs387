@@ -79,9 +79,10 @@ class App extends React.Component {
                         <Route path='graphs' element={<GraphPage />} />
                         <Route path='controllers' element={<ControllerHomePage />} />
                         <Route path='alerts' element={<ViewMessages />} />
+                        {/* <Route path='alerts/view' element={<ViewThresholds/>} /> */}
                         <Route path='alerts/add' element={<AddThreshold/>}/>
                         {/* <Route path='alerts/modify' element={<ModifyThreshold/>}/> */}
-                        {/* <Route path='alerts/configure' element={<ConfigurePage/>}/> */}
+                        {/* <Route path='alerts/delete' element={<DeleteThreshold/>}/> */}
                     </Route>
                     <Route path='/login' element={<LoginPage />} />
                     <Route path='/register' element={<RegisterPage />} />

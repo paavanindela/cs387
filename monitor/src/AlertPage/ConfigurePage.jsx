@@ -4,6 +4,7 @@ import { history } from "../_helpers/history";
 import metricService from "../_services/metric.service";
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import thresholdService from "../_services/threshold.service";
 
 class AddThreshold extends React.Component{
     constructor(props){
@@ -36,6 +37,22 @@ class AddThreshold extends React.Component{
             }
         );
     }
+
+    AddThreshold(){
+        console.log(this.state.hostname, this.state.metricname, this.state.threshold);
+        thresholdService.addThreshold(this.state.hostname, this.state.metricname, this.state.threshold).then(
+            res => {
+                console.log(res);
+                history.push("/admin/metrics");
+                window.location.reload();
+            }
+        ).catch(
+            err => {
+                console.log(err);
+            }
+        )
+    }
+
     render(){
         const { hostname, metricname, threshold, hostList, metricList } = this.state;
         return(
@@ -54,17 +71,16 @@ class AddThreshold extends React.Component{
                     })}
                     onSubmit={(values, { setSubmitting }) => {
                         setSubmitting(true);
-                        (values.hostname, values.metricname, values.threshold)
-                            .then(
-                                user => {
-                                    setSubmitting(false);
-                                    history.push("/alerts/configure");
-                                }
-                            )
-                            .catch(err => {
-                                setSubmitting(false);
+                        this.setState(
+                            {
+                                hostname: values.hostname,
+                                metricname: values.metricname,
+                                threshold: values.threshold,
                             }
-                        );
+                            ,() => {
+                                this.AddThreshold()
+                            }
+                        )
                     }}
                 >
                     {({ isSubmitting }) => (
