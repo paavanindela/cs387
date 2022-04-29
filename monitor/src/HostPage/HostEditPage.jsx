@@ -61,7 +61,12 @@ class HostEditPage extends React.Component{
                                     history.push('/admin/hosts');
                                     window.location.reload();
                                 }
-                            );
+                            ).catch(
+                                error => {
+                                    setSubmitting(false);
+                                    setStatus(error.response.data.message);
+                                }
+                            )
                     }}
                     render={({ errors, status, touched, isSubmitting }) => (
                         <Form>

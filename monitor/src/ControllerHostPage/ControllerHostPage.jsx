@@ -2,13 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import UserService from "../_services/user.service";
+import HostService from "../_services/host.service";
+import { history } from '../_helpers/history';
 
 class ControllerHostPage extends React.Component {
     constructor (props) {
         super (props);
         const pathname = window.location.pathname //returns the current url minus the domain name
         // parse url to get userID
-        const userID = pathname.split('/')[4];
+        const userID = pathname.split('/')[3];
+        // console.log(userID);
         this.state = {
             hostList: [],
             username: userID,
@@ -16,16 +19,36 @@ class ControllerHostPage extends React.Component {
         }
     }
     componentDidMount () {
-        const { username } = this.state;
-        UserService.getHosts(username).then(hostList=>{console.log(hostList);this.setState({hostList});})
+        HostService.getAllHost().then(
+            res => {
+                this.setState({
+                    hostList: res
+                });
+            }
+        );
+        UserService.getHosts(this.state.username).then(
+            res => {
+                this.setState({
+                    selectedHostList: res.hlist,
+                });
+            }
+        );
     }
 
     addHostList () {
-        UserService.addHosts(username, this.state.selectedHostList).then(()=>{window.location.reload();})
+      console.log(this.state.selectedHostList, this.state.username);
+        UserService.addHosts(this.state.username, this.state.selectedHostList).then(()=>{
+          history.push('/admin/controllers');
+          window.location.reload();
+        }).catch(
+          err => {
+            console.log(err);
+          }
+        )
     }
 
     render() {
-        const { data, hostList,applicationList,metricList, startTime, endTime, parameter, selectedHostList,selectedMetricList,isLoaded} = this.state;
+        const { hostList, username, selectedHostList} = this.state;
         let color = "#ffffff"
         return (
           // form component to select start and end times
@@ -34,7 +57,7 @@ class ControllerHostPage extends React.Component {
             <Formik
               initialValues={{
                 
-                selectedHostList: [],
+                selectedHostList: selectedHostList,
                 
               }}
               validationSchema={Yup.object().shape({
@@ -56,7 +79,7 @@ class ControllerHostPage extends React.Component {
                       <label htmlFor="selectedHostList">Hosts</label>
                       <Field name="selectedHostList" as="select" className={'form-control' + (errors.selectedHostList && touched.selectedHostList ? ' is-invalid' : '')} multiple>
                         {hostList.map((host, index) =>
-                          <option key={index} value={host}>{host}</option>
+                          <option key={index} value={host.hostname}>{host.hostname}</option>
                         )}
                       </Field>
                       <ErrorMessage name="selectedHostList" component="div" className="invalid-feedback" />

@@ -12,6 +12,8 @@ const config = require('../config/influx.config')
 
 const queryApi = new InfluxDB.InfluxDB({url:config.URL, token:config.TOKEN}).getQueryApi(config.ORG)
 
+const field_list = ["_measurement","db","device","fstype","mode","name","path","pattern","process_name","pid_finder","result","server","user"];
+
 // function to convert hostList to flux query
 function convertList(List,value) {
     let influxQuery = "|> filter(fn: (r) => ";
@@ -24,15 +26,25 @@ function convertList(List,value) {
     return influxQuery;
 }
 
+function generateParameterList(value){
+    let influxQuery = "|> filter(fn: (r) => ";
+    for (let i = 0; i < field_list.length; i++) {
+        influxQuery += 'r["'+field_list[i]+'"] == \"' + value + '\"';
+        if (i != field_list.length - 1)
+            influxQuery += ' or ';
+    }
+    return influxQuery + ')';
+}
+
 
 async function getData(hostList,metricList,start,end,parameter) {
     // insert the converted hostlist into fluxquery
     let hostX = convertList(hostList,"host");
-    // let appX = convertList(applicationList,"_measurement");
+    let appX = generateParameterList(parameter);
     let metricX = convertList(metricList,"_field");
     const fluxQuery = 'from(bucket: "PROJECT")\
-        |> range(start: '+start+', stop: '+end+')\
-        |> filter(fn: (r) => r["_measurement"] == "'+parameter+'")\ '
+        |> range(start: '+start+', stop: '+end+')\ '
+        + appX + '\ '
         + metricX + '\ '
         + hostX + '\
         |> aggregateWindow(every: 10m, fn: mean, createEmpty: false)\

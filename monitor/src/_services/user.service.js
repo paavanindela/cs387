@@ -16,7 +16,7 @@ const getAll = () => {
 }
 
 const makeActive = (username) => {
-  return axios.put(API_URL + 'active/'+username,{ headers: authHeader()  });
+  return axios.put(API_URL + 'active',{username},{ headers: authHeader()  });
 }
 
 const revokeAccess = (username) => {
@@ -32,17 +32,24 @@ const deleteController = (username) => {
 }
 
 const addHosts = (username, list) => {
-  return axios.post(API_URL + 'addcontroller', {username, 'hostname':list}, { headers: authHeader() }).then(
+  console.log(username)
+  return axios.post(API_URL + 'chcacm/'+username, {'hlist':list,'alist':[],'mlist':[]}, { headers: authHeader() }).then(
     (response) => {
-      return response.data;
+      console.log(response);
+      return response;
     }
   );
 }
 
 const getHosts = (username) => {
+<<<<<<< HEAD
   let x = authHeader();
   console.log(x);
   return axios.get(API_URL + 'gethosts', {username}, { headers: x }).then(
+=======
+  console.log(username)
+  return axios.get(API_URL + 'chcacm/'+ username, { headers: authHeader() }).then(
+>>>>>>> 798c28e7d41b0560b33bf2de73e7206ec1107ab2
     (response) => {
       return response.data;
     }

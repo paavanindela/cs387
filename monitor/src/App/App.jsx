@@ -8,11 +8,16 @@ import { AdminPage } from '@/AdminPage';
 import { LoginPage } from '@/LoginPage';
 import { RegisterPage } from '@/RegisterPage';
 import { HostPage, HostAddPage, HostEditPage } from '@/HostPage';
-import { ControllerPage } from '@/ControllerPage';
+import { ControllerPage,ControllerHomePage } from '@/ControllerPage';
 import { AlertPage, AddAlertPage } from '@/AlertPage';
 import { ApplicationPage } from '@/ApplicationPage';
 import { GraphPage } from '@/GraphPage';
+<<<<<<< HEAD
 import { AddApplicationPage } from '@/AddApplicationPage';
+=======
+import { ViewMessages } from '../AlertPage/ViewMessage';
+import { AddThreshold } from '../AlertPage/ConfigurePage';
+>>>>>>> 798c28e7d41b0560b33bf2de73e7206ec1107ab2
 import { ControllerHostPage } from '@/ControllerHostPage';
 
 
@@ -22,7 +27,8 @@ class App extends React.Component {
 
         this.state = {
             currentUser: null,
-            isAdmin: false
+            isAdmin: false,
+            isActive: false,
         };
     }
 
@@ -32,7 +38,8 @@ class App extends React.Component {
         if (user) {
             this.setState({
                 currentUser: user,
-                isAdmin: user && user.role == 2
+                isAdmin: user && user.role == 2,
+                isActive: user && user.status == 1
             });
         }
     }
@@ -44,7 +51,7 @@ class App extends React.Component {
     }
 
     render() {
-        const { currentUser, isAdmin } = this.state;
+        const { currentUser,isActive , isAdmin } = this.state;
         return (
             <Router history={history}>
                 <div>
@@ -53,6 +60,7 @@ class App extends React.Component {
                             <div className="navbar-nav">
                                 <Link to="/" className="nav-item nav-link">Home</Link>
                                 {isAdmin && <Link to="/admin" className="nav-item nav-link">Admin</Link>}
+                                {currentUser.role==1 && <Link to="/controllers" className="nav-item nav-link">Controller</Link>}
                                 <a onClick={this.logout} className="nav-item nav-link">Logout</a>
                             </div>
                         </nav>
@@ -74,6 +82,11 @@ class App extends React.Component {
                             <Route path='controllers/:id' element={<ControllerHostPage/>}/>
                         </Route>
                         <Route path='graphs' element={<GraphPage />} />
+                        <Route path='controllers' element={<ControllerHomePage />} />
+                        <Route path='alerts' element={<ViewMessages />} />
+                        <Route path='alerts/add' element={<AddThreshold/>}/>
+                        {/* <Route path='alerts/modify' element={<ModifyThreshold/>}/> */}
+                        {/* <Route path='alerts/configure' element={<ConfigurePage/>}/> */}
                     </Route>
                     <Route path='/login' element={<LoginPage />} />
                     <Route path='/register' element={<RegisterPage />} />

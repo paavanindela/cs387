@@ -50,11 +50,6 @@ async function addca(alist, username) {
     alistrem = alistold.filter(x => !alist.includes(x));
     alistadd = alist.filter(x => !alistold.includes(x));
 
-    console.log(alist);
-    console.log(alistold);
-    console.log(alistrem);
-    console.log(alistadd);
-
     if(alistrem.length!=0){
         remstr = "delete from controllerapplication where username = $1 and appid in (";
         for(i=0;i<alistrem.length-1;i++){

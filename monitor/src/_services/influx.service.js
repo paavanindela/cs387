@@ -16,6 +16,7 @@ const getData = (hostList,metricList,start,end,parameter) => {
     }).then(
         (response) => {
             let json = response.data;
+            console.log(json)
             let finalData = {};
             for( let i=0 ; i< metricList.length; i++){
                 finalData[metricList[i]] = [];
