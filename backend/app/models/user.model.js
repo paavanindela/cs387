@@ -79,7 +79,7 @@ async function deleteController(username) {
 
 async function getHosts(username) {
   const rows = await pool.query(
-    "SELECT hostname from controllerhost where username = $1",
+    "SELECT hostname from host where hostname not in (SELECT hostname from controllerhost where username = $1)",
     [username]
  );
  return {

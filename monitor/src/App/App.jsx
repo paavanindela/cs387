@@ -14,6 +14,7 @@ import { ApplicationPage } from '@/ApplicationPage';
 import { GraphPage } from '@/GraphPage';
 import { ViewMessages } from '../AlertPage/ViewMessage';
 import { AddThreshold } from '../AlertPage/ConfigurePage';
+import { ControllerHostPage } from '@/ControllerHostPage';
 
 
 class App extends React.Component {
@@ -74,6 +75,7 @@ class App extends React.Component {
                             <Route path='alerts' element={<AlertPage />} />
                             <Route path='alerts/add' element={<AddAlertPage />} />
                             <Route path='applications' element={<ApplicationPage />} />
+                            <Route path='controllers/:id' element={<ControllerHostPage/>}/>
                         </Route>
                         <Route path='graphs' element={<GraphPage />} />
                         <Route path='controllers' element={<ControllerHomePage />} />

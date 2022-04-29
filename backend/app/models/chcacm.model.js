@@ -125,10 +125,30 @@ async function getch(username) {
     }
 }
 
+async function getchall() {
+    const rows = await pool.query(
+        "select hostname from controllerhost"
+    );
+
+    return {
+        'rows': rows.rows,
+    }
+}
+
 async function getca(username) {
     const rows = await pool.query(
-        "select appid from controllerapplication where username = $1",
+        "select * from controllerapplication inner join application on application.appid=controllerapplication.appid where username=$1;",
         [username]
+    );
+
+    return {
+        'rows': rows.rows,
+    }
+}
+
+async function getcaall() {
+    const rows = await pool.query(
+        "select * from controllerapplication inner join application on application.appid=controllerapplication.appid;",
     );
 
     return {
@@ -147,11 +167,24 @@ async function getcm(username) {
     }
 }
 
+async function getcmall() {
+    const rows = await pool.query(
+        "select name from controllermetric"
+    );
+
+    return {
+        'rows': rows.rows,
+    }
+}
+
 module.exports = {
     addch,
     getch,
     addca,
     getca,
     addcm,
-    getcm
+    getcm,
+    getcaall,
+    getchall,
+    getcmall
 }
