@@ -15,7 +15,7 @@ module.exports = function(app) {
     controller.userBoard
   );
   app.put(
-    "/api/active",
+    "/api/active/:username",
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.makeActive
   );
@@ -37,8 +37,18 @@ module.exports = function(app) {
   app.get(
     "/api/gethosts",
     [authJwt.verifyToken],
-    controller.addController
+    controller.getHosts
   );
+  app.get(
+    "/api/getapps",
+    [authJwt.verifyToken],
+    controller.getApps
+  )
+  app.get(
+    "/api/getmetrics",
+    [authJwt.verifyToken],
+    controller.getMetrics
+  )
   app.delete(
     "/api/controller/delete/:username",
     [authJwt.verifyToken, authJwt.isAdmin],

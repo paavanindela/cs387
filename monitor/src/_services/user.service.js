@@ -16,7 +16,7 @@ const getAll = () => {
 }
 
 const makeActive = (username) => {
-  return axios.put(API_URL + 'active',{username},{ headers: authHeader() } );
+  return axios.put(API_URL + 'active/'+username,{ headers: authHeader()  });
 }
 
 const revokeAccess = (username) => {

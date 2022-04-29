@@ -32,7 +32,11 @@ exports.getData = (req, res) => {
     influx.getData(req.query.hostList, req.query.metricList, req.query.start, req.query.end
         ,req.query.parameter).then(
         (result) => {
-              res.status(200).send(result);
-          }
+           res.status(200).send(result);
+        }   
+    ).catch(
+        err => {
+            res.status(500).send({message: err.message});
+        }
     )
 }
