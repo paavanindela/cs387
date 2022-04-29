@@ -37,6 +37,16 @@ module.exports = function(app) {
   app.get(
     "/api/gethosts",
     [authJwt.verifyToken],
-    controller.addController
+    controller.getHosts
   );
+  app.get(
+    "/api/getapps",
+    [authJwt.verifyToken],
+    controller.getApps
+  )
+  app.get(
+    "/api/getmetrics",
+    [authJwt.verifyToken],
+    controller.getMetrics
+  )
 };

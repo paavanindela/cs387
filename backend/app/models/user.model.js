@@ -89,15 +89,27 @@ async function getHosts(username) {
  }
 }
 
-async function getApplication(username) {
+async function getApps(username, hosts) {
   const rows = await pool.query(
-    "SELECT appId, name, status, owner, hostname from application natural join controllerhost join controller on username   where username = $1",
-    [username]
+    "SELECT appid from controllerapplication natural join application where username = $1 and hostname in ($2)",
+    [username, hosts]
  );
  // console.log(rows.rows)
  // const data = helper.emptyOrRows(rows);
  
  
+ return {
+   'rows': rows.rows,
+ }
+}
+
+async function getMetrics(username) {
+  const rows = await pool.query(
+    "SELECT name from controllermetric where username = $1",
+    [username]
+ );
+ // console.log(rows.rows)
+ // const data = helper.emptyOrRows(rows);
  return {
    'rows': rows.rows,
  }
@@ -110,5 +122,6 @@ module.exports = {
   makeActive,
   addController,
   getHosts,
-
+  getApps,
+  getMetrics,
 }

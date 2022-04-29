@@ -88,16 +88,27 @@ exports.allAccess = (req, res) => {
  }
 
  exports.getHosts = (req, res)=>{
-  User.getHosts(req.userId).then(user=>{res.status(200).send({user})})
+  User.getHosts(req.userId).then(user=>{res.status(200).send({"data":user.rows})})
   .catch(err => {
    res.status(500).send({ message: err.message });
  });
  }
 
  exports.getApps = (req, res)=>{
-  User.getApps(req.userId).then(user=>{res.status(200).send({user})})
+   var hosts = req.query.hosts.split(',');
+   console.log(hosts);
+  User.getApps(req.userId, hosts).then(user=>{res.status(200).send({"data":user.rows})})
   .catch(err => {
    res.status(500).send({ message: err.message });
  });
  }
+
+ exports.getMetrics = (req, res)=>{
+  User.getMetrics(req.userId).then(user=>{res.status(200).send({"data":user.rows})})
+  .catch(err => {
+   res.status(500).send({ message: err.message });
+ });
+ }
+
+
 
