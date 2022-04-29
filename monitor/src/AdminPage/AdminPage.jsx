@@ -35,6 +35,9 @@ class AdminPage extends React.Component {
                     <li key={"alert"}>
                         <Link to="/admin/alerts">Alerts</Link>
                     </li>
+                    {/* <li key={"applications"}>
+                        <Link to="/admin/applications">Applications</Link>
+                    </li> */}
                 </ul>
                 {/* <div>
                     {users &&

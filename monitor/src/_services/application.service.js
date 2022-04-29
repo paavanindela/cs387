@@ -36,11 +36,11 @@ const addAnApp = (appid, name, status, owner, hostname) => {
 }
 
 const getAllApps = (hnamelist) => {
-    return axios.get(API_URL ,{
-        headers : authHeader(),
-        params: {
-        hnamelist: hnamelist
-    }});
+    console.log(hnamelist);
+    return axios.get(API_URL ,
+        {hnamelist},
+        {headers : authHeader()
+        });
 }
 
 const applicationService = {
