@@ -9,11 +9,11 @@ exports.allChcacm = (req, res) => {
     };
 
     Chcacm.getch(req.params.username).then(row1 => {
-        output['hlist'] = row1;
+        output['hlist'] = row1.rows;
         Chcacm.getca(req.params.username).then(row2 => {
-            output['alist'] = row2;
+            output['alist'] = row2.rows;
             Chcacm.getcm(req.params.username).then(row3 => {
-                output["mlist"] = row3;
+                output["mlist"] = row3.rows;
                 res.status(200).send(output);
             });
         });

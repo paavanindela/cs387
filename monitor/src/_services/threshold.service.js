@@ -19,7 +19,7 @@ const modifyThreshold = (hostname, metricname, threshold) => {
 }
 
 const addThreshold = ( hostname, metricname, threshold) => {
-    return axios.post(API_URL + "/threshold", {
+    return axios.post(API_URL + "threshold", {
         hostname,
         metricname,
         threshold
@@ -29,7 +29,7 @@ const addThreshold = ( hostname, metricname, threshold) => {
 }
 
 const deleteThreshold = ( hostname, metricname) => {
-    return axios.delete(API_URL + "/threshold", {
+    return axios.delete(API_URL + "threshold", {
         hostname,
         metricname
     }, {
@@ -38,7 +38,7 @@ const deleteThreshold = ( hostname, metricname) => {
 }
 
 const getAllMessages = () => {
-    return axios.get(API_URL + "/message", {
+    return axios.get(API_URL + "message", {
         headers: authHeader()
     });
 }

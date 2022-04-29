@@ -3,6 +3,7 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import UserService from "../_services/user.service";
 import HostService from "../_services/host.service";
+import { history } from '../_helpers/history';
 
 class ControllerHostPage extends React.Component {
     constructor (props) {
@@ -29,8 +30,6 @@ class ControllerHostPage extends React.Component {
             res => {
                 this.setState({
                     selectedHostList: res.hlist,
-                }, () => {
-                  console.log(this.state.selectedHostList);
                 });
             }
         );
@@ -39,8 +38,13 @@ class ControllerHostPage extends React.Component {
     addHostList () {
       console.log(this.state.selectedHostList, this.state.username);
         UserService.addHosts(this.state.username, this.state.selectedHostList).then(()=>{
-          // window.location.reload();
-        })
+          history.push('/admin/controllers');
+          window.location.reload();
+        }).catch(
+          err => {
+            console.log(err);
+          }
+        )
     }
 
     render() {
