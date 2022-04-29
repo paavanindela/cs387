@@ -31,6 +31,22 @@ const deleteController = (username) => {
   );
 }
 
+const addHosts = (username, list) => {
+  return axios.post(API_URL + 'addcontroller', {username, 'hostname':list}, { headers: authHeader() }).then(
+    (response) => {
+      return response.data;
+    }
+  );
+}
+
+const getHosts = (username) => {
+  return axios.get(API_URL + 'gethosts', {username}, { headers: authHeader() }).then(
+    (response) => {
+      return response.data;
+    }
+  );
+}
+
 const UserService = {
   getPublicContent,
   getUserBoard,
@@ -38,6 +54,8 @@ const UserService = {
   getAll,
   makeActive,
   revokeAccess,
-  deleteController
+  deleteController,
+  addHosts,
+  getHosts,
 };
 export default UserService;
