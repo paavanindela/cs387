@@ -13,7 +13,7 @@ class ViewMessages extends React.Component {
 
     componentDidMount() {
         thresholdService.getAllMessages().then(messages => this.setState({ 
-            messages: messages.data,
+            messages: messages,
             status: true })).catch(
             error => {
                 this.setState({

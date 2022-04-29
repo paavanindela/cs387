@@ -5,7 +5,11 @@ import { authHeader } from "../_helpers/auth-header";
 const getThresholds = (username) => {
     return axios.get(API_URL + "/threshold", {
         headers: authHeader()
-    });
+    }).then(
+        (response) => {
+            return response.data;
+        }
+    );
 }
 
 const modifyThreshold = (hostname, metricname, threshold) => {
@@ -15,7 +19,11 @@ const modifyThreshold = (hostname, metricname, threshold) => {
         threshold
     }, {
         headers: authHeader()
-    });
+    }).then(
+        (response) => {
+            return response.data;
+        }
+    );
 }
 
 const addThreshold = ( hostname, metricname, threshold) => {
@@ -25,7 +33,11 @@ const addThreshold = ( hostname, metricname, threshold) => {
         threshold
     }, {
         headers: authHeader()
-    });
+    }).then(
+        (response) => {
+            return response.data;
+        }
+    );
 }
 
 const deleteThreshold = ( hostname, metricname) => {
@@ -34,13 +46,21 @@ const deleteThreshold = ( hostname, metricname) => {
         metricname
     }, {
         headers: authHeader()
-    });
+    }).then(
+        (response) => {
+            return response.data;
+        }
+    );
 }
 
 const getAllMessages = () => {
     return axios.get(API_URL + "message", {
         headers: authHeader()
-    });
+    }).then(
+        (response) => {
+            return response.data;
+        }
+    );
 }
 
 const thresholdService = {

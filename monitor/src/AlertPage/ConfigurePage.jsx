@@ -19,15 +19,17 @@ class AddThreshold extends React.Component{
     }
 
     componentDidMount(){
-        HostService.getAllHosts().then(
+        HostService.getAllHost().then(
             res => {
+                console.log(res)
                 this.setState({
                     hostList: res
                 });
             }
         );
-        metricService.getAllMetrics().then(
+        metricService.getAlerts().then(
             res => {
+                console.log(res)
                 this.setState({
                     metricList: res
                 });
@@ -35,6 +37,7 @@ class AddThreshold extends React.Component{
         );
     }
     render(){
+        const { hostname, metricname, threshold, hostList, metricList } = this.state;
         return(
             <div>
                 <h1>Configure Page</h1>
@@ -66,7 +69,6 @@ class AddThreshold extends React.Component{
                 >
                     {({ isSubmitting }) => (
                         <Form>
-                            {/* SELECT FROM HOST LIST */}
                             <div className="form-group"> 
                                 <label htmlFor="hostname">Hostname</label>
                                 <Field name="hostname" type="select" className="form-control">
@@ -77,7 +79,6 @@ class AddThreshold extends React.Component{
                                 </Field>
                                 <ErrorMessage name="hostname" component="div" className="invalid-feedback" />
                             </div>
-                            {/* SELECT FROM METRIC LIST */}
                             <div className="form-group">
                                 <label htmlFor="metricname">Metricname</label>
                                 <Field name="metricname" type="select" className="form-control">
