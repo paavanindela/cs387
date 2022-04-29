@@ -12,6 +12,7 @@ import { ControllerPage,ControllerHomePage } from '@/ControllerPage';
 import { AlertPage, AddAlertPage } from '@/AlertPage';
 import { ApplicationPage } from '@/ApplicationPage';
 import { GraphPage } from '@/GraphPage';
+import { AddApplicationPage } from '@/AddApplicationPage';
 import { ViewMessages } from '../AlertPage/ViewMessage';
 import { AddThreshold } from '../AlertPage/ConfigurePage';
 import { ControllerHostPage } from '@/ControllerHostPage';
@@ -70,6 +71,7 @@ class App extends React.Component {
                             <Route path='hosts' element={<HostPage />} />
                             <Route path='hosts/add' element={<HostAddPage />} />
                             <Route path='hosts/edit/:id' element={<HostEditPage />} />
+                            <Route path='hostaddapps/:id' element={<AddApplicationPage />} />
                             <Route path='controllers' element={<ControllerPage />} />
                             <Route path='alerts' element={<AlertPage />} />
                             <Route path='alerts/add' element={<AddAlertPage />} />

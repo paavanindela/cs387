@@ -19,8 +19,9 @@ class ApplicationPage extends React.Component{
     loadApplications(){
         applicationService.getAllApps()
         .then(applications => {
+            console.log(applications.data);
             this.setState({
-                applications: applications,
+                applications: applications.data,
                 loading: false
             });
         })
@@ -53,7 +54,7 @@ class ApplicationPage extends React.Component{
         return (
             <div>
                 <h1>Applications</h1>
-                {error && <div className="alert alert-danger">{error}</div>}
+                {error && <div className="alert alert-danger">{error.message}</div>}
                 {loading && <div className="alert alert-info">Loading...</div>}
                 <table className="table table-striped">
                     <thead>
@@ -67,13 +68,13 @@ class ApplicationPage extends React.Component{
                     </thead>
                     <tbody>
                         {applications.map(application => (
-                            <tr key={application.appId}>
+                            <tr key={application.appid}>
                                 <td>{application.name}</td>
                                 <td>{application.status}</td>
                                 <td>{application.owner}</td>
-                                <td>{application.hname}</td>
+                                <td>{application.hostname}</td>
                                 <td>
-                                    <button className="btn btn-danger" onClick={() => this.deleteApplication(application.appId)}>Delete</button>
+                                    <button className="btn btn-danger" onClick={() => this.deleteApplication(application.appid)}>Delete</button>
                                     {/* <button className="btn btn-primary" onClick={() => history.push(`/applications/${application.appId}`)}>Edit</button> */}
                                 </td>
                             </tr>
