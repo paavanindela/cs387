@@ -34,13 +34,15 @@ const deleteController = (username) => {
 const addHosts = (username, list) => {
   return axios.post(API_URL + 'addcontroller', {username, 'hostname':list}, { headers: authHeader() }).then(
     (response) => {
-      return response.data;
+      console.log(response);
+      return response;
     }
   );
 }
 
 const getHosts = (username) => {
-  return axios.get(API_URL + 'gethosts', {username}, { headers: authHeader() }).then(
+  console.log(username)
+  return axios.get(API_URL + 'chcacm',{username}, { headers: authHeader() }).then(
     (response) => {
       return response.data;
     }

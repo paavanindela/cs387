@@ -8,7 +8,8 @@ class ControllerHostPage extends React.Component {
         super (props);
         const pathname = window.location.pathname //returns the current url minus the domain name
         // parse url to get userID
-        const userID = pathname.split('/')[4];
+        const userID = pathname.split('/')[3];
+        // console.log(userID);
         this.state = {
             hostList: [],
             username: userID,
@@ -16,16 +17,21 @@ class ControllerHostPage extends React.Component {
         }
     }
     componentDidMount () {
-        const { username } = this.state;
-        UserService.getHosts(username).then(hostList=>{console.log(hostList);this.setState({hostList});})
+        UserService.getHosts(this.state.username).then(
+            res => {
+                this.setState({
+                    hostList: res
+                });
+            }
+        );
     }
 
     addHostList () {
-        UserService.addHosts(username, this.state.selectedHostList).then(()=>{window.location.reload();})
+        UserService.addHosts(this.state.username, this.state.selectedHostList).then(()=>{window.location.reload();})
     }
 
     render() {
-        const { data, hostList,applicationList,metricList, startTime, endTime, parameter, selectedHostList,selectedMetricList,isLoaded} = this.state;
+        const { hostList, username, selectedHostList} = this.state;
         let color = "#ffffff"
         return (
           // form component to select start and end times

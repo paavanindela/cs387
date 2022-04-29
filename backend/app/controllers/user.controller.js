@@ -100,10 +100,11 @@ exports.addController = (req, res) => {
 }
 
  exports.getHosts = (req, res)=>{
-  User.getHosts(req.body.username).then(user=>{res.status(200).send({"data":user.rows})})
-  .catch(err => {
-   res.status(500).send({ message: err.message });
- });
+   User.getHosts(req.userId).then(user=>{res.status(200).send({"data":user.rows})})
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    }
+  );
  }
 
  exports.getApps = (req, res)=>{
