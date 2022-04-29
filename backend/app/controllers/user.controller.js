@@ -69,26 +69,30 @@ exports.addController = (req, res) => {
       if (!user.rows[0]) {
         return res.status(404).send({ message: "User Not found." });
       }
+      console.log(req.body.hostname.length);
+      for (var i=0; i<req.body.hostname.length; i++){
       Host.findOneHost(
-        req.body.hostname
+        req.body.hostname[i]
       ).then(
         host => {
           if (!host.rows[0]) {
             return res.status(404).send({ message: "Host Not found." });
           }
-          User.addController(req.body.username, req.body.hostname).then(
+          User.addController(req.body.username, req.body.hostname[i]).then(
             () => {
-              res.status(201).send({ message: "Controller Host Added Succesfully" })
-            }
-          ).catch(err => {
-            res.status(500).send({ message: err.message });
-          });
+              // res.status(201).send({ message: "Controller Host Added Succesfully" })
+            });
+          // ).catch(err => {
+          //   res.status(500).send({ message: err.message });
+          // });
         }
       )
-        .catch(err => {
-          res.status(500).send({ message: err.message });
-        });
-
+        // .catch(err => {
+        //   res.status(500).send({ message: err.message });
+        // });
+      }
+    }).then(()=>{
+      res.status(201).send({ message: "Controller Host Added Succesfully" });
     })
     .catch(err => {
       res.status(500).send({ message: err.message });
@@ -96,7 +100,7 @@ exports.addController = (req, res) => {
 }
 
  exports.getHosts = (req, res)=>{
-  User.getHosts(req.userId).then(user=>{res.status(200).send({"data":user.rows})})
+  User.getHosts(req.body.username).then(user=>{res.status(200).send({"data":user.rows})})
   .catch(err => {
    res.status(500).send({ message: err.message });
  });

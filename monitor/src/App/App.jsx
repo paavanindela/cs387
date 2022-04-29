@@ -12,6 +12,7 @@ import { ControllerPage } from '@/ControllerPage';
 import { AlertPage, AddAlertPage } from '@/AlertPage';
 import { ApplicationPage } from '@/ApplicationPage';
 import { GraphPage } from '@/GraphPage';
+import { ControllerHostPage } from '@/ControllerHostPage';
 
 
 class App extends React.Component {
@@ -68,6 +69,7 @@ class App extends React.Component {
                             <Route path='alerts' element={<AlertPage />} />
                             <Route path='alerts/add' element={<AddAlertPage />} />
                             <Route path='applications' element={<ApplicationPage />} />
+                            <Route path='controllers/:id' element={<ControllerHostPage/>}/>
                         </Route>
                         <Route path='graphs' element={<GraphPage />} />
                     </Route>
