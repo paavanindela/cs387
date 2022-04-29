@@ -10,17 +10,12 @@ class AdminPage extends React.Component {
             history.push('/');
             window.location.reload();
         }
-        this.state = {
-            users: null
-        };
     }
 
     componentDidMount() {
-        UserService.getAll().then(res => { this.setState({ users: res.data.user.rows }); }, error => { console.log(error) });
     }
 
     render() {
-        const { users } = this.state;
         return (
             <div>
                 {/* <nav className="navbar navbar-expand navbar-dark bg-dark">
@@ -32,13 +27,13 @@ class AdminPage extends React.Component {
                 </nav> */}
                 <ul>
                     <li key={"host"}>
-                        <Link to="/adminhost">Hosts</Link>
+                        <Link to="/admin/hosts">Hosts</Link>
                     </li>
                     <li key={"controller"}>
-                        <Link to="/admincontroller">Controllers</Link>
+                        <Link to="/admin/controllers">Controllers</Link>
                     </li>
                     <li key={"alert"}>
-                        <Link to="/adminalert">Alerts</Link>
+                        <Link to="/admin/alerts">Alerts</Link>
                     </li>
                 </ul>
                 {/* <div>

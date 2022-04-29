@@ -32,7 +32,7 @@ class HostAddPage extends React.Component {
                         HostService.addHost(hostname, ip, mac, os, influx)
                             .then(
                                 user => {
-                                    history.push('/adminhost');
+                                    history.push('/admin/hosts');
                                     window.location.reload();
                                 },
                                 error => {

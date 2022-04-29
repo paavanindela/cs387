@@ -22,7 +22,6 @@ class HomePage extends React.Component {
         return (
             <div>
                 <h1>Home</h1>
-                <p>You're logged in with React & JWT!!</p>
                 <p>Your role is: <strong>{currentUser.role==2?"ADMIN":currentUser.role==1?"CONTROLLER":"INACTIVE"}</strong>.</p>
             </div>
         );

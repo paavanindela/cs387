@@ -27,8 +27,8 @@ const addHost = (hostname, ipaddress, macaddress, ostype, influx) => {
     );
 };
 
-const modifyHost = (hname, hostname, ipaddr, macaddr, ostype, influx) => {
-    return axios.put(API_URL + hname, {hostname, ipaddr, macaddr, ostype, influx}, {headers: authHeader()}).then(
+const modifyHost = (hname, hostname, ipaddress, macaddress, ostype, influx) => {
+    return axios.put(API_URL + hname, {hostname, ipaddress, macaddress, ostype, influx}, {headers: authHeader()}).then(
         (response) => {
             return response.data;
         }

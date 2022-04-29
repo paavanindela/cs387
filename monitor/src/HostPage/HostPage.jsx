@@ -1,6 +1,7 @@
 import React from "react";
 import HostService from "../_services/host.service";
 import { history } from '../_helpers/history';
+import { Outlet } from "react-router-dom";
 
 class HostPage extends React.Component {
     constructor(props) {
@@ -29,7 +30,7 @@ class HostPage extends React.Component {
 
     // function to modify host
     modify(host) {
-        history.push(`/hostedit/${host.hostname}`);
+        history.push(`hosts/edit/${host.hostname}`);
         window.location.reload();
     }
 
@@ -52,7 +53,7 @@ class HostPage extends React.Component {
             return <div>
                 Loading...
                 <button onClick={() => {
-                        history.push('/hostadd');
+                        history.push('/admin/hosts/add');
                         window.location.reload();
                     }}>ADD HOST</button>
                 <p></p>
@@ -76,7 +77,7 @@ class HostPage extends React.Component {
                         }
                     </div>
                     <button onClick={() => {
-                        history.push('/hostadd');
+                        history.push('/admin/hosts/add');
                         window.location.reload();
                     }}>ADD HOST</button>
                     <p></p>

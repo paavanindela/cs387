@@ -1,3 +1,5 @@
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import React from "react";
 import HostService from "../_services/host.service";
 import { history } from '../_helpers/history';
@@ -5,16 +7,18 @@ import { history } from '../_helpers/history';
 class HostEditPage extends React.Component{
     constructor(props) {
         super(props);
-        // get host from url
-        const hostname = this.props.match.params.hostname;
+        const pathname = window.location.pathname //returns the current url minus the domain name
+        // parse url to get userID
+        const hostID = pathname.split('/')[4];
+        console.log(hostID)
         this.state = {
-            host: hostname,
+            host: hostID,
             status: false
         };
     }
 
     componentDidMount() {
-        HostService.getHost(this.state.host).then(
+        HostService.getOneHost(this.state.host).then(
             res => {
                 this.setState({
                     host: res,
@@ -37,9 +41,9 @@ class HostEditPage extends React.Component{
                 <Formik
                     initialValues={{
                         hostname: host.hostname,
-                        ip: host.ip,
-                        mac: host.mac,
-                        os: host.os,
+                        ip: host.ipaddress,
+                        mac: host.macaddress,
+                        os: host.ostype,
                         influx: host.influx,
                     }}
                     validationSchema={Yup.object().shape({
@@ -54,7 +58,7 @@ class HostEditPage extends React.Component{
                         HostService.modifyHost(host.hostname, hostname, ip, mac, os, influx)
                             .then(
                                 user => {
-                                    history.push('/adminhost');
+                                    history.push('/admin/hosts');
                                     window.location.reload();
                                 }
                             );
@@ -92,7 +96,7 @@ class HostEditPage extends React.Component{
                             </div>
                             <div className="form-group">
                                 <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-                                    Add
+                                    MODIFY
                                 </button>
                                 {isSubmitting &&
                                     <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
