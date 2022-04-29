@@ -9,6 +9,8 @@ DROP TABLE IF EXISTS AppAlert CASCADE;
 DROP TABLE IF EXISTS Metric CASCADE;
 DROP TABLE IF EXISTS ControllerApplication CASCADE;
 DROP TABLE IF EXISTS ControllerMetric CASCADE;
+DROP TABLE IF EXISTS Message;
+DROP TABLE IF EXISTS Threshold;
 DROP FUNCTION IF EXISTS tf1 CASCADE;
 CREATE TABLE Metric(
     name varchar(20) not null,
@@ -84,6 +86,23 @@ CREATE TABLE ControllerMetric(
     PRIMARY KEY(username, name),
     FOREIGN KEY(username) references Controller on delete CASCADE,
     FOREIGN KEY(name) references Metric on delete CASCADE
+);
+CREATE TABLE Message(
+    msgId int not null,
+    username varchar(20) not null,
+    message text not null,
+    PRIMARY KEY(msgId),
+    FOREIGN KEY(username) references Controller on delete CASCADE
+);
+CREATE TABLE Threshold(
+    username varchar(20) not null,
+    hostname varchar(20) not null,
+    metricname varchar(20) not null,
+    threshold int not null,
+    PRIMARY KEY(username, hostname, metricName),
+    FOREIGN KEY(username) references Controller on delete CASCADE,
+    FOREIGN KEY(hostname) references Host on delete CASCADE,
+    FOREIGN KEY(metricname) references Metric(name) on delete CASCADE
 );
 CREATE FUNCTION tf1()
     RETURNS TRIGGER AS
