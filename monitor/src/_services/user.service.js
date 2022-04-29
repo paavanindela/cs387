@@ -42,14 +42,8 @@ const addHosts = (username, list) => {
 }
 
 const getHosts = (username) => {
-<<<<<<< HEAD
-  let x = authHeader();
-  console.log(x);
-  return axios.get(API_URL + 'gethosts', {username}, { headers: x }).then(
-=======
   console.log(username)
   return axios.get(API_URL + 'chcacm/'+ username, { headers: authHeader() }).then(
->>>>>>> 798c28e7d41b0560b33bf2de73e7206ec1107ab2
     (response) => {
       return response.data;
     }

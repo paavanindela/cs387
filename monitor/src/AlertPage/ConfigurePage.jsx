@@ -71,8 +71,8 @@ class AddThreshold extends React.Component{
                         <Form>
                             <div className="form-group"> 
                                 <label htmlFor="hostname">Hostname</label>
-                                <Field name="hostname" type="select" className="form-control">
-                                    <option value="">Select Host</option>
+                                <Field name="hostname" as="select" className="form-control">
+                                    <option key="#" value="">Select Host</option>
                                     {this.state.hostList.map(host =>
                                         <option key={host.hostname} value={host.hostname}>{host.hostname}</option>
                                     )}
@@ -81,8 +81,8 @@ class AddThreshold extends React.Component{
                             </div>
                             <div className="form-group">
                                 <label htmlFor="metricname">Metricname</label>
-                                <Field name="metricname" type="select" className="form-control">
-                                    <option value="">Select Metric</option>
+                                <Field name="metricname" as="select" className="form-control">
+                                    <option key="#" value="">Select Metric</option>
                                     {this.state.metricList.map(metric =>
                                         <option key={metric.metricname} value={metric.metricname}>{metric.metricname}</option>
                                     )}

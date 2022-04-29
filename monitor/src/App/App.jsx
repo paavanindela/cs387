@@ -12,12 +12,9 @@ import { ControllerPage,ControllerHomePage } from '@/ControllerPage';
 import { AlertPage, AddAlertPage } from '@/AlertPage';
 import { ApplicationPage } from '@/ApplicationPage';
 import { GraphPage } from '@/GraphPage';
-<<<<<<< HEAD
 import { AddApplicationPage } from '@/AddApplicationPage';
-=======
 import { ViewMessages } from '../AlertPage/ViewMessage';
 import { AddThreshold } from '../AlertPage/ConfigurePage';
->>>>>>> 798c28e7d41b0560b33bf2de73e7206ec1107ab2
 import { ControllerHostPage } from '@/ControllerHostPage';
 
 
