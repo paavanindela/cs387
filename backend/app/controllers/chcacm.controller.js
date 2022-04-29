@@ -3,20 +3,30 @@ const User = require("../models/user.model");
 
 exports.allChcacm = (req, res) => {
     output = {
-        'hlist': null,
-        'alist': null,
-        'mlist': null
+        'hlist': [],
+        'alist': [],
+        'mlist': []
     };
 
-    Chcacm.getch(req.params.username).then(row1 => {
-        output['hlist'] = row1.rows;
-        Chcacm.getca(req.params.username).then(row2 => {
-            output['alist'] = row2.rows;
-            Chcacm.getcm(req.params.username).then(row3 => {
-                output["mlist"] = row3.rows;
-                res.status(200).send(output);
+    User.findOne(req.userId).then(user => {
+        if(!user.rows[0]){
+            res.status(500).send({message: "user not found"});
+        }
+        else if(user.rows[0].status===0){
+            res.status(500).send({message: "user not active"});
+        }
+        else{
+            Chcacm.getch(req.body.username).then(row1 => {
+                output['hlist'] = row1;
+                Chcacm.getca(req.body.username).then(row2 => {
+                    output['alist'] = row2;
+                    Chcacm.getcm(req.body.username).then(row3 => {
+                        output["mlist"] = row3;
+                        res.status(200).send(output);
+                    });
+                });
             });
-        });
+        }
     }).catch(
         err => {
             res.status(500).send({message: err.message});
