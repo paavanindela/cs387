@@ -16,13 +16,13 @@ exports.moderatorBoard = (req, res) => {
 
 exports.makeActive = (req, res) => {
   User.findOne(
-    req.params.username
+    req.body.username
   )
     .then(user => {
       if (!user.rows[0]) {
         return res.status(404).send({ message: "User Not found." });
       }
-      User.makeActive(req.params.username)
+      User.makeActive(req.body.username)
         .then(() => {
           res.status(201).send({
             message: "User made Active successfully!"
@@ -100,15 +100,15 @@ exports.addController = (req, res) => {
 }
 
  exports.getHosts = (req, res)=>{
-  User.getHosts(req.body.username).then(user=>{res.status(200).send({"data":user.rows})})
-  .catch(err => {
-   res.status(500).send({ message: err.message });
- });
+   User.getHosts(req.userId).then(user=>{res.status(200).send({"data":user.rows})})
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    }
+  );
  }
 
  exports.getApps = (req, res)=>{
    var hosts = req.query.hosts.split(',');
-   console.log(hosts);
   User.getApps(req.userId, hosts).then(user=>{res.status(200).send({"data":user.rows})})
   .catch(err => {
    res.status(500).send({ message: err.message });
@@ -116,7 +116,6 @@ exports.addController = (req, res) => {
  }
 
 exports.deleteController = (req, res) => {
-  console.log(req.body)
   User.deleteController(req.params.username).then(user => { res.status(200).send({ user }) })
     .catch(err => {
       res.status(500).send({ message: err.message });

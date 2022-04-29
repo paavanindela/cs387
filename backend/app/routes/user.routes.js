@@ -15,7 +15,7 @@ module.exports = function(app) {
     controller.userBoard
   );
   app.put(
-    "/api/active/:username",
+    "/api/active",
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.makeActive
   );

@@ -35,10 +35,9 @@ exports.allChcacm = (req, res) => {
 };
 
 exports.addChcacm = (req, res) => {
-    console.log(req.body);
-    Chcacm.addch(req.body.hlist, req.body.username).then(() => {
-        Chcacm.addca(req.body.alist, req.body.username).then(() => {
-            Chcacm.addcm(req.body.mlist, req.body.username).then(() => {
+    Chcacm.addch(req.body.hlist, req.params.username).then(() => {
+        Chcacm.addca(req.body.alist, req.params.username).then(() => {
+            Chcacm.addcm(req.body.mlist, req.params.username).then(() => {
                 res.status(201).send({message: "changes made successfully"});
             });
         });

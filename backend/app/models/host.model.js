@@ -23,7 +23,6 @@ async function findAllHost() {
 }
 
 async function addHost(hostname, ipaddress, macaddress, ostype, influx) {
-    console.log(influx===true);
     const rows = await pool.query(
         "insert into host values ($1, $2, $3, $4, $5)",
         [hostname, ipaddress, macaddress, ostype, influx]
