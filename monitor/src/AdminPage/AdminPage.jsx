@@ -32,13 +32,13 @@ class AdminPage extends React.Component {
                 </nav> */}
                 <ul>
                     <li key={"host"}>
-                        <Link to="/adminhost">Hosts</Link>
+                        <Link to="/admin/hosts">Hosts</Link>
                     </li>
                     <li key={"controller"}>
-                        <Link to="/admincontroller">Controllers</Link>
+                        <Link to="/admin/controllers">Controllers</Link>
                     </li>
                     <li key={"alert"}>
-                        <Link to="/adminalert">Alerts</Link>
+                        <Link to="/admin/alerts">Alerts</Link>
                     </li>
                 </ul>
                 {/* <div>

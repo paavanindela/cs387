@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, Routes, Outlet} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Routes, Outlet } from 'react-router-dom';
 import { history, Role } from '@/_helpers';
 import AuthService from '../_services/authentication.service';
 import { PrivateRoute } from '@/_components';
@@ -55,27 +55,18 @@ class App extends React.Component {
                     }
                 </div>
                 <Routes>
-                {/* <Route path="/hostedit" element={<PrivateRoute roles={[Role.Admin]} />}>
-                        <Route path=':add' element={<HostAddPage />} />
-                    </Route> */}
-                    
                     <Route path='/' element={<PrivateRoute />}>
-                        <Route path='/' element={<HomePage />} />
+                        <Route path='' element={<HomePage />} />
+                        <Route path='admin' element={<PrivateRoute roles={[Role.Admin]} />}>
+                            <Route path='' element={<AdminPage />} />
+                            <Route path='hosts' element={<HostPage />} />
+                            <Route path='hosts/add' element={<HostAddPage />} />
+                            <Route path='hosts/edit/:id' element={<HostEditPage/>} />  
+                        </Route>
+                        <Route path="login" element={<LoginPage />} />
+                        <Route path="register" element={<RegisterPage />} />
+                        <Route path="cpu" element={<CpuPage />} />
                     </Route>
-                    <Route path='/admin' element={<PrivateRoute roles={[Role.Admin]} />}>
-                        <Route path='' element={<AdminPage />} />
-                    </Route>
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/register" element={<RegisterPage />} />
-                    <Route path="/cpu" element={<CpuPage />} />
-                    <Route path="/adminhost" element={<PrivateRoute roles={[Role.Admin]} />}>
-                        <Route path='' element={<HostPage />} />
-                    </Route>
-                    <Route path="/hostadd" element={<PrivateRoute roles={[Role.Admin]} />}>
-                        <Route path='' element={<HostAddPage />} />
-                        
-                    </Route>
-                    
                 </Routes>
             </Router>
         );
