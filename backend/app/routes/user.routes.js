@@ -34,7 +34,7 @@ module.exports = function(app) {
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.addController
   );
-  app.get0(
+  app.get(
     "/api/gethosts",
     [authJwt.verifyToken],
     controller.addController
