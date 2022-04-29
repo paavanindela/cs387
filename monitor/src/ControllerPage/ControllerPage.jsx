@@ -26,9 +26,11 @@ class ControllerPage extends React.Component{
             </div>
         }
         return <div>
+            
             <h1>Controller Page</h1>
-            <ul>
-                {controllerList.map(controller => <div key={controller.username}><li>{controller.username}</li>
+            {/* <ul> */}
+                {controllerList.map(controller => <div style={{border:'2px solid blue',margin:"45px",padding:"10px 10px",fontSize:"30px"}} key={controller.username}>{controller.username}
+                                <br></br>
                 {controller.status == 0 && <button className='form-control' onClick={
                                     () => {
                                         UserService.makeActive(controller.username).then(()=>{window.location.reload();});
@@ -39,15 +41,16 @@ class ControllerPage extends React.Component{
                                     () => {
                                         UserService.revokeAccess(controller.username).then(()=>{window.location.reload();});
                                     }  
-                                }>Make Inactive</button>}
-                <button onClick={
+                                }>Make Inactive</button>}&nbsp;&nbsp;&nbsp;&nbsp;
+                <button style={{backgroundColor:'red'}} onClick={
                                     () => {
                                         let res = UserService.deleteController(controller.username).then(()=>{window.location.reload();}); 
                                     
                                     }
                                 }>Delete User</button>
+                                <br></br>
                 </div>)}
-            </ul>
+            {/* </ul> */}
         </div>;            
     }
 }

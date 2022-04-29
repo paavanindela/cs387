@@ -92,12 +92,13 @@ const RegisterPage = () => {
   };
   
   return (
-    <div className="col-md-12">
-      <div className="card card-container">
+    <div className="col-md-12" style={{display: 'flex', background:'#ddd' ,justifyContent:'center', alignItems:'center', height: '100vh'}}>
+      <div className="card card-container" style={{alignItems:'center',textAlign:'center',background:'#17fc26',padding:"20px 20px" }}>
         <Form onSubmit={handleRegister} ref={form}>
+        <div style={{alignItems:'center',textAlign:'center',background:'#17fc26' }}><h2 >Register</h2></div>
           {!successful && (
             <div>
-              <div className="form-group">
+              <div className="form-group" style={{alignItems:'center',textAlign:'center'}}>
                 <label htmlFor="username">Username</label>
                 <Input
                   type="text"
@@ -108,7 +109,8 @@ const RegisterPage = () => {
                   validations={[required, vusername]}
                 />
               </div>
-              <div className="form-group">
+              <br></br>
+              <div className="form-group" style={{alignItems:'center',textAlign:'center'}}>
                 <label htmlFor="password">Password</label>
                 <Input
                   type="password"
@@ -119,9 +121,11 @@ const RegisterPage = () => {
                   validations={[required, vpassword]}
                 />
               </div>
-              <div className="form-group">
+              <br></br>
+              <div className="form-group" style={{alignItems:'center',textAlign:'center'}}>
                 <button className="btn btn-primary btn-block">Sign Up</button>
               </div>
+              <br></br>
             </div>
           )}
           {message && (
