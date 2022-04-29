@@ -37,7 +37,7 @@ async function findAll() {
 }
 
 async function makeActive(username) {
-  console.log(username);
+  // console.log(username);
   const rows = await pool.query(
      "UPDATE controller set status=1 where username = $1",
      [username]
@@ -58,7 +58,7 @@ async function revokeAccess(username){
 }
 
 async function addController(username, hostname) {
-  console.log(hostname);
+  // console.log(hostname);
   for (i=0; i<hostname.length; i++){
   const rows = await pool.query(
     "INSERT into controllerhost (username, hostname) values ($1, $2)",

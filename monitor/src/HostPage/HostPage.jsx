@@ -37,7 +37,7 @@ class HostPage extends React.Component {
 
     // function to delete host
     delete(host) {
-        console.log(host);
+        // console.log(host);
         HostService.deleteHost(host.hostname).then(
             res => {
                 this.setState({

@@ -54,11 +54,11 @@ async function getData(hostList,metricList,start,end,parameter) {
     .then(
       data => {
         res = data
-        console.log('COLLECT ROWS SUCCESS')
+        // console.log('COLLECT ROWS SUCCESS')
       })
     .catch(error => {
         console.error(error)
-        console.log('COLLECT ROWS ERROR')
+        // console.log('COLLECT ROWS ERROR')
      });
     return res;
 }

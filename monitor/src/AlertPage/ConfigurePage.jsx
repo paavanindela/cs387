@@ -6,8 +6,8 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import thresholdService from "../_services/threshold.service";
 
-class AddThreshold extends React.Component{
-    constructor(props){
+class AddThreshold extends React.Component {
+    constructor(props) {
         super(props);
         // hostname metricname threshold
         this.state = {
@@ -16,13 +16,14 @@ class AddThreshold extends React.Component{
             threshold: "",
             hostList: [],
             metricList: [],
+            error: "",
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         HostService.getAllHost().then(
             res => {
-                console.log(res)
+                // console.log(res)
                 this.setState({
                     hostList: res
                 });
@@ -30,7 +31,7 @@ class AddThreshold extends React.Component{
         );
         metricService.getAlerts().then(
             res => {
-                console.log(res)
+                // console.log(res)
                 this.setState({
                     metricList: res
                 });
@@ -38,30 +39,38 @@ class AddThreshold extends React.Component{
         );
     }
 
-    AddThreshold(){
-        console.log(this.state.hostname, this.state.metricname, this.state.threshold);
+    AddThreshold() {
+        // console.log(this.state.hostname, this.state.metricname, this.state.threshold);
         thresholdService.addThreshold(this.state.hostname, this.state.metricname, this.state.threshold).then(
             res => {
-                console.log(res);
-                history.push("/admin/metrics");
+                // console.log(res);
+                history.push('/alerts/view');
                 window.location.reload();
             }
         ).catch(
             err => {
                 console.log(err);
+                this.setState({
+                    error: err.message
+                });
+                // window.location.reload();
             }
-        )
+        );
     }
 
-    render(){
-        const { hostname, metricname, threshold, hostList, metricList } = this.state;
-        return(
+    render() {
+        const { hostname, metricname, threshold, hostList, metricList,error } = this.state;
+        return (
             <div>
                 <h1>Configure Page</h1>
-                <Formik 
+                { error!="" && <div className="alert alert-danger">{error}</div>
+                    && <button className="btn btn-primary" onClick={() => history.back()}>Error Occured! Go Back</button>
+                }
+                {error=="" &&
+                <Formik
                     initialValues={{
                         hostname: "",
-                        metricname : "",
+                        metricname: "",
                         threshold: "",
                     }}
                     validationSchema={Yup.object().shape({
@@ -77,15 +86,15 @@ class AddThreshold extends React.Component{
                                 metricname: values.metricname,
                                 threshold: values.threshold,
                             }
-                            ,() => {
-                                this.AddThreshold()
+                            , () => {
+                                this.AddThreshold();
                             }
                         )
                     }}
                 >
                     {({ isSubmitting }) => (
                         <Form>
-                            <div className="form-group"> 
+                            <div className="form-group">
                                 <label htmlFor="hostname">Hostname</label>
                                 <Field name="hostname" as="select" className="form-control">
                                     <option key="#" value="">Select Host</option>
@@ -104,7 +113,7 @@ class AddThreshold extends React.Component{
                                     )}
                                 </Field>
                                 <ErrorMessage name="metricname" component="div" className="invalid-feedback" />
-                            </div>                  
+                            </div>
                             <div className="form-group">
                                 <label htmlFor="threshold">Threshold</label>
                                 <Field name="threshold" type="text" className="form-control" />
@@ -115,22 +124,22 @@ class AddThreshold extends React.Component{
                             </button>
                         </Form>
                     )}
-                </Formik>
+                </Formik>}
             </div>
         );
     }
 }
 
-class ViewThreshold extends React.Component{
-    constructor(props){
+class ViewThreshold extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
-            thresholdList : [],
-            status : false,
+            thresholdList: [],
+            status: false,
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         thresholdService.getThresholds().then(
             res => {
                 this.setState({
@@ -145,18 +154,18 @@ class ViewThreshold extends React.Component{
         )
     }
 
-    modifyThreshold(id){
+    modifyThreshold(id) {
         let threshold = this.state.thresholdList[id];
-        console.log(threshold);
-        history.push("/alerts/modify/"+threshold.hostname+"/"+threshold.metricname);
+        // console.log(threshold);
+        history.push("/alerts/modify/" + threshold.hostname + "/" + threshold.metricname);
         window.location.reload();
     }
 
-    deleteThreshold(id){
+    deleteThreshold(id) {
         let threshold = this.state.thresholdList[id];
-        thresholdService.deleteThreshold( threshold.hostname, threshold.metricname).then(
+        thresholdService.deleteThreshold(threshold.hostname, threshold.metricname).then(
             res => {
-                console.log(res);
+                // console.log(res);
                 window.location.reload();
             }
         ).catch(
@@ -166,9 +175,9 @@ class ViewThreshold extends React.Component{
         )
     }
 
-    render(){
+    render() {
         const { thresholdList, status } = this.state;
-        return(
+        return (
             <div>
                 <h1>View Thresholds</h1>
                 {status ?
@@ -183,7 +192,7 @@ class ViewThreshold extends React.Component{
                                 </tr>
                             </thead>
                             <tbody>
-                                {thresholdList.map((threshold,id) =>
+                                {thresholdList.map((threshold, id) =>
                                     <tr key={id}>
                                         <td>{threshold.hostname}</td>
                                         <td>{threshold.metricname}</td>
@@ -193,7 +202,7 @@ class ViewThreshold extends React.Component{
                                                 this.deleteThreshold(id)
                                             }}>Delete</button>
                                             <button className="btn btn-warning" onClick={() => {
-                                                this.editThreshold(id)
+                                                this.modifyThreshold(id)
                                             }}>Edit</button>
                                         </td>
                                     </tr>
@@ -212,4 +221,82 @@ class ViewThreshold extends React.Component{
 
 }
 
-export { AddThreshold, ViewThreshold };
+class ModifyThreshold extends React.Component {
+    constructor(props) {
+        super(props);
+        // pathname
+        const pathname = window.location.pathname
+        // pathname = "/alerts/modify/hostname/metricname"
+        const hostname = pathname.split("/")[3];
+        const metricname = pathname.split("/")[4];
+        this.state = {
+            hostname: hostname,
+            metricname: metricname,
+            threshold: 0,
+        }
+    }
+
+    componentDidMount() {
+    }
+
+    modifyThreshold() {
+        thresholdService.modifyThreshold(this.state.hostname, this.state.metricname, this.state.threshold).then(
+            res => {
+                // console.log(res);
+                history.push("/alerts/view");
+                window.location.reload();
+            }
+        ).catch(
+            err => {
+                console.log(err);
+            }
+        )
+    }
+
+    render() {
+        const { hostname, metricname, threshold } = this.state;
+        return (
+            <div>
+                <h1>Modify Threshold</h1>
+                <div>{hostname}<br></br>
+                    {metricname}</div>
+                <Formik
+                    initialValues={{
+                        threshold: 0,
+                    }}
+                    validationSchema={Yup.object().shape({
+                        threshold: Yup.number()
+                            .min(0, "Threshold must be greater than 0")
+                            .required("Threshold is required"),
+                    })}
+                    onSubmit={(values, { setSubmitting }) => {
+                        setSubmitting(true);
+                        this.setState(
+                            {
+                                threshold: values.threshold,
+                            }
+                            , () => {
+                                this.modifyThreshold()
+                            }
+                        )
+                    }}
+                >
+                    {({ isSubmitting }) => (
+                        <Form>
+                            <div className="form-group">
+                                <label htmlFor="threshold">Threshold</label>
+                                <Field name="threshold" type="text" className="form-control" />
+                                <ErrorMessage name="threshold" component="div" />
+                            </div>
+                            <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                                Submit
+                            </button>
+                        </Form>
+                    )}
+                </Formik>
+            </div>
+        );
+    }
+}
+
+export { AddThreshold, ViewThreshold, ModifyThreshold };

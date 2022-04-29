@@ -63,3 +63,15 @@ exports.getAllApp = (req, res) => {
         }
     );
 }
+
+exports.getHostApp = (req, res) => {
+    let hostlist = req.query.hnamelist
+    App.findAllApp(hostlist).then(hostlist => {
+        res.status(200).send(hostlist.rows);
+    })
+    .catch(
+        err => {
+            res.status(500).send({message: err.message});
+        }
+    );
+}

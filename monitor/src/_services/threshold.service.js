@@ -41,7 +41,7 @@ const addThreshold = ( hostname, metricname, threshold) => {
 }
 
 const deleteThreshold = ( hostname, metricname) => {
-    console.log(hostname, metricname);
+    // console.log(hostname, metricname);
     return axios.delete(API_URL + "threshold/"+hostname+"/"+metricname, {
         headers: authHeader()
     }).then(
