@@ -40,7 +40,9 @@ const addHosts = (username, list) => {
 }
 
 const getHosts = (username) => {
-  return axios.get(API_URL + 'gethosts', {username}, { headers: authHeader() }).then(
+  let x = authHeader();
+  console.log(x);
+  return axios.get(API_URL + 'gethosts', {username}, { headers: x }).then(
     (response) => {
       return response.data;
     }

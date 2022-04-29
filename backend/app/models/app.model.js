@@ -25,14 +25,24 @@ async function findAllApp(hnamelist) {
     }
 }
 
-async function addApp(appid, name, status, owner, hostname) {
+async function addApp( name, status, owner, hostname) {
     const rows = await pool.query(
-        "insert into application values ($1, $2, $3, $4, $5)",
-        [appid, name, status, owner, hostname]
+        "insert into application (name, status, owner, hostname) values ($1, $2, $3, $4)",
+        [name, status, owner, hostname]
     );
 
     return {
         'rows': rows,
+    }
+}
+
+async function getAllApp() {
+    const rows = await pool.query(
+        "select * from application"
+    );
+
+    return {
+        'rows': rows.rows,
     }
 }
 
@@ -63,5 +73,6 @@ module.exports = {
     findAllApp,
     addApp,
     deleteApp,
-    modifyApp
+    modifyApp,
+    getAllApp,
 }

@@ -25,7 +25,7 @@ class HostPage extends React.Component {
     
     // function to add apps to host
     addApps(host) {
-        history.push(`/hostAddapps/${host.hostname}/addapps`);
+        history.push(`/admin/hostaddapps/${host.hostname}`);
         window.location.reload();
     }
 
