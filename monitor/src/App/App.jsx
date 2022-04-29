@@ -8,9 +8,11 @@ import { AdminPage } from '@/AdminPage';
 import { LoginPage } from '@/LoginPage';
 import { RegisterPage } from '@/RegisterPage';
 import { HostPage, HostAddPage, HostEditPage } from '@/HostPage';
-// import { ControllerPage } from '@/ControllerPage';
-// import { AlertPage } from '@/AlertPage';
+import { ControllerPage } from '@/ControllerPage';
+import { AlertPage,AddAlertPage } from '@/AlertPage';
+import { ApplicationPage} from '@/ApplicationPage';
 import { CpuPage } from '@/GraphPage';
+
 
 class App extends React.Component {
     constructor(props) {
@@ -62,11 +64,15 @@ class App extends React.Component {
                             <Route path='hosts' element={<HostPage />} />
                             <Route path='hosts/add' element={<HostAddPage />} />
                             <Route path='hosts/edit/:id' element={<HostEditPage/>} />  
+                            <Route path='controllers' element={<ControllerPage />} />
+                            <Route path='alerts' element={<AlertPage />}/>
+                            <Route path='alerts/add' element={<AddAlertPage/>}/> 
+                            <Route path='applications' element={<ApplicationPage/>}/>  
                         </Route>
-                        <Route path="login" element={<LoginPage />} />
-                        <Route path="register" element={<RegisterPage />} />
                         <Route path="cpu" element={<CpuPage />} />
                     </Route>
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
                 </Routes>
             </Router>
         );

@@ -13,7 +13,9 @@ exports.addMetric = (req, res) => {
 };
 
 exports.deleteMetric = (req, res) => {
-    Metric.deleteMetric(req.body.name).then(() => {
+    Metric.deleteMetric(req.params.name).then(() => {
         res.status(200).send({message: "metric deleted successfully"});
-    });
+    }).catch(err => {
+        res.status(500).send({ message: err.message });
+      });
 };

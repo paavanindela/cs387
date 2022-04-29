@@ -22,6 +22,7 @@ require('./app/routes/user.routes')(app);
 require('./app/routes/influx.routes')(app);
 require('./app/routes/host.routes')(app);
 require('./app/routes/app.routes')(app);
+require('./app/routes/metric.routes')(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
