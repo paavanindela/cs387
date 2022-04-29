@@ -18,7 +18,11 @@ exports.oneHost = (req, res) => {
 exports.allHost = (req, res) => {
     Host.findAllHost().then(host => {
         res.status(200).send(host.rows);
-    });
+    }).catch(
+        err => {
+            res.status(500).send({message: err.message});
+        }
+    );
     // res.status(200).send("allhostok");
 };
 
