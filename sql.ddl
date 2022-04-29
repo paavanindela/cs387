@@ -46,7 +46,7 @@ CREATE TABLE Controller(
 
 CREATE TABLE ControllerHost(
     username varchar(20) not null,
-    hostname varchar(20) not null,
+    hostname varchar(60) not null,
     PRIMARY KEY(username, hostname) ,
     FOREIGN KEY(username) references Controller on delete CASCADE,
     FOREIGN KEY(hostname) references Host on delete CASCADE

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import UserService from "../_services/user.service";
+import HostService from "../_services/host.service";
 
 class ControllerHostPage extends React.Component {
     constructor (props) {
@@ -17,17 +18,29 @@ class ControllerHostPage extends React.Component {
         }
     }
     componentDidMount () {
-        UserService.getHosts(this.state.username).then(
+        HostService.getAllHost().then(
             res => {
                 this.setState({
                     hostList: res
                 });
             }
         );
+        UserService.getHosts(this.state.username).then(
+            res => {
+                this.setState({
+                    selectedHostList: res.hlist,
+                }, () => {
+                  console.log(this.state.selectedHostList);
+                });
+            }
+        );
     }
 
     addHostList () {
-        UserService.addHosts(this.state.username, this.state.selectedHostList).then(()=>{window.location.reload();})
+      console.log(this.state.selectedHostList, this.state.username);
+        UserService.addHosts(this.state.username, this.state.selectedHostList).then(()=>{
+          // window.location.reload();
+        })
     }
 
     render() {
@@ -40,7 +53,7 @@ class ControllerHostPage extends React.Component {
             <Formik
               initialValues={{
                 
-                selectedHostList: [],
+                selectedHostList: selectedHostList,
                 
               }}
               validationSchema={Yup.object().shape({
@@ -62,7 +75,7 @@ class ControllerHostPage extends React.Component {
                       <label htmlFor="selectedHostList">Hosts</label>
                       <Field name="selectedHostList" as="select" className={'form-control' + (errors.selectedHostList && touched.selectedHostList ? ' is-invalid' : '')} multiple>
                         {hostList.map((host, index) =>
-                          <option key={index} value={host}>{host}</option>
+                          <option key={index} value={host.hostname}>{host.hostname}</option>
                         )}
                       </Field>
                       <ErrorMessage name="selectedHostList" component="div" className="invalid-feedback" />

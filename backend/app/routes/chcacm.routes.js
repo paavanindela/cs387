@@ -9,6 +9,6 @@ module.exports = function(app) {
         );
         next();
     });
-    app.get("/api/chcacm/", [authJwt.verifyToken], controller.allChcacm);
-    app.post("/api/chcacm/", [authJwt.verifyToken, authJwt.isAdmin], controller.addChcacm);
+    app.get("/api/chcacm/:username", [authJwt.verifyToken], controller.allChcacm);
+    app.post("/api/chcacm/:username", [authJwt.verifyToken, authJwt.isAdmin], controller.addChcacm);
 };
