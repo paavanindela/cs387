@@ -1,6 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, Routes, Outlet } from 'react-router-dom';
-
+import { BrowserRouter as Router, Route, Link, Routes, Outlet} from 'react-router-dom';
 import { history, Role } from '@/_helpers';
 import AuthService from '../_services/authentication.service';
 import { PrivateRoute } from '@/_components';
@@ -8,7 +7,7 @@ import { HomePage } from '@/HomePage';
 import { AdminPage } from '@/AdminPage';
 import { LoginPage } from '@/LoginPage';
 import { RegisterPage } from '@/RegisterPage';
-import { HostPage, HostAddPage } from '@/HostPage';
+import { HostPage, HostAddPage, HostEditPage } from '@/HostPage';
 // import { ControllerPage } from '@/ControllerPage';
 // import { AlertPage } from '@/AlertPage';
 import { CpuPage } from '@/GraphPage';
@@ -56,6 +55,10 @@ class App extends React.Component {
                     }
                 </div>
                 <Routes>
+                {/* <Route path="/hostedit" element={<PrivateRoute roles={[Role.Admin]} />}>
+                        <Route path=':add' element={<HostAddPage />} />
+                    </Route> */}
+                    
                     <Route path='/' element={<PrivateRoute />}>
                         <Route path='/' element={<HomePage />} />
                     </Route>
@@ -70,10 +73,9 @@ class App extends React.Component {
                     </Route>
                     <Route path="/hostadd" element={<PrivateRoute roles={[Role.Admin]} />}>
                         <Route path='' element={<HostAddPage />} />
+                        
                     </Route>
-                    <Route path="/hostedit/:id" element={<PrivateRoute roles={[Role.Admin]} />}>
-                        <Route path='' element={<HostAddPage />} />
-                    </Route>
+                    
                 </Routes>
             </Router>
         );

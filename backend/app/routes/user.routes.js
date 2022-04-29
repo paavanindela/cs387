@@ -29,4 +29,14 @@ module.exports = function(app) {
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.getAll
   );
+  app.post(
+    "/api/addcontroller",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.addController
+  );
+  app.get0(
+    "/api/gethosts",
+    [authJwt.verifyToken],
+    controller.addController
+  );
 };

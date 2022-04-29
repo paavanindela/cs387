@@ -47,7 +47,7 @@ async function findAll() {
 }
 
 async function makeActive(username) {
-  
+  console.log(username);
   const rows = await pool.query(
      "UPDATE controller set status=1 where username = $1",
      [username]
@@ -61,9 +61,54 @@ async function makeActive(username) {
   }
 }
 
+async function addController(username, hostname) {
+  const rows = await pool.query(
+    "INSERT into controllerhost (username, hostname) values ($1, $2)",
+    [username, hostname]
+ );
+ // console.log(rows.rows)
+ // const data = helper.emptyOrRows(rows);
+ 
+ 
+ return {
+   'rows': rows.rows,
+ }
+}
+
+async function getHosts(username) {
+  const rows = await pool.query(
+    "SELECT hostname from controllerhost where username = $1",
+    [username]
+ );
+ // console.log(rows.rows)
+ // const data = helper.emptyOrRows(rows);
+ 
+ 
+ return {
+   'rows': rows.rows,
+ }
+}
+
+async function getApplication(username) {
+  const rows = await pool.query(
+    "SELECT appId, name, status, owner, hostname from application natural join controllerhost join controller on username   where username = $1",
+    [username]
+ );
+ // console.log(rows.rows)
+ // const data = helper.emptyOrRows(rows);
+ 
+ 
+ return {
+   'rows': rows.rows,
+ }
+}
+
 module.exports = {
   findOne,
   create, 
   findAll,
   makeActive,
+  addController,
+  getHosts,
+
 }
