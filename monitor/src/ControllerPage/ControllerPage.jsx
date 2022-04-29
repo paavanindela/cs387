@@ -31,20 +31,19 @@ class ControllerPage extends React.Component{
                 {controllerList.map(controller => <div key={controller.username}><li>{controller.username}</li>
                 {controller.status == 0 && <button className='form-control' onClick={
                                     () => {
-                                        UserService.makeActive(controller.username);
-                                        window.location.reload();
+                                        UserService.makeActive(controller.username).then(()=>{window.location.reload();});
+                                        // window.location.reload();
                                     }
                                 }>Make Active</button>}
                 {controller.status == 1 && <button className="form-control" onClick={
                                     () => {
-                                        UserService.revokeAccess(controller.username)
-                                        window.location.reload();
+                                        UserService.revokeAccess(controller.username).then(()=>{window.location.reload();});
                                     }  
                                 }>Make Inactive</button>}
                 <button onClick={
                                     () => {
-                                        let res = UserService.deleteController(controller.username); 
-                                        window.location.reload();
+                                        let res = UserService.deleteController(controller.username).then(()=>{window.location.reload();}); 
+                                    
                                     }
                                 }>Delete User</button>
                 </div>)}

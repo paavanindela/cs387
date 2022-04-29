@@ -1,4 +1,5 @@
 const Host = require("../models/host.model")
+const App = require("../models/app.model")
 
 exports.oneHost = (req, res) => {
     Host.findOneHost(req.params.hname).then(host => {

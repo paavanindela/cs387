@@ -16,13 +16,13 @@ exports.moderatorBoard = (req, res) => {
 
 exports.makeActive = (req, res) => {
   User.findOne(
-    req.body.username
+    req.params.username
   )
     .then(user => {
       if (!user.rows[0]) {
         return res.status(404).send({ message: "User Not found." });
       }
-      User.makeActive(req.body.username)
+      User.makeActive(req.params.username)
         .then(() => {
           res.status(201).send({
             message: "User made Active successfully!"

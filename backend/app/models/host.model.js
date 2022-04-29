@@ -56,10 +56,11 @@ async function modifyHost(hostname1, hostname2, ipaddress, macaddress, ostype, i
     }
 }
 
+
 module.exports = {
     findOneHost,
     findAllHost,
     addHost,
     deleteHost,
-    modifyHost
+    modifyHost,
 }
