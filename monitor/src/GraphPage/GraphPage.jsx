@@ -31,9 +31,10 @@ class GraphPage extends React.Component {
         "used_percent",
         "active",
         "cached",
-        "blks_hit",
-        "blks_read",
-        "deadlocks"
+        "tup_returned",
+        "tup_fetched",
+        "tup_inserted",
+        "tup_updated",
       ],
       startTime: '-30d',
       endTime: '-20d',
@@ -49,13 +50,14 @@ class GraphPage extends React.Component {
   }
 
   getData() {
+    console.log(this.state.selectedHostList,this.state.selectedMetricList)
     influxService.getData(this.state.selectedHostList, this.state.selectedMetricList, this.state.startTime, this.state.endTime
       , this.state.parameter
     ).then(data => {
       this.setState({
         data: data,
         isLoaded: true
-      })
+      },() => console.log(this.state.data))
     })
   }
 
@@ -88,7 +90,8 @@ class GraphPage extends React.Component {
               endTime: endTime,
               parameter: parameter,
               selectedHostList: selectedHostList,
-              selectedMetricList: selectedMetricList
+              selectedMetricList: selectedMetricList,
+              isLoaded: false
             }, () => {
               this.getData();
             });

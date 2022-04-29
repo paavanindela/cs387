@@ -24,7 +24,6 @@ exports.allChcacm = (req, res) => {
 };
 
 exports.addChcacm = (req, res) => {
-    console.log(req.body);
     Chcacm.addch(req.body.hlist, req.userId).then(() => {
         Chcacm.addca(req.body.alist, req.userId).then(() => {
             Chcacm.addcm(req.body.mlist, req.userId).then(() => {

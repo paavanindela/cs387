@@ -39,7 +39,6 @@ class LoginPage extends React.Component {
                             .then(
                                 user => {
                                     console.log(user)
-                                    // const { from } = this.props.location.state || { from: { pathname: "/" } };
                                     history.push('/');
                                     window.location.reload();
                                 },
