@@ -36,7 +36,7 @@ class AlertPage extends React.Component {
                 {!isLoading && alertList.length > 0 && (
                     alertList.map(alert => (
                         <div key={alert.name} style={{border:'2px solid blue',margin:"45px",padding:"10px 10px",fontSize:"30px"}}>
-                            <li> {alert.name} </li>
+                             {alert.name} 
                             <br></br>
                             <button onClick={() => this.delete(alert)}>DELETE</button>
                             <br></br>
