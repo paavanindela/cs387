@@ -10,5 +10,5 @@ module.exports = function(app) {
         next();
     });
     app.get("/api/chcacm/", [authJwt.verifyToken], controller.allChcacm);
-    app.post("/api/chcacm/", [authJwt.verifyToken], controller.addChcacm);
+    app.post("/api/chcacm/", [authJwt.verifyToken, authJwt.isAdmin], controller.addChcacm);
 };

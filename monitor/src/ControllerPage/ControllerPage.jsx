@@ -1,5 +1,7 @@
 import React from "react";
 import UserService from "../_services/user.service";
+import { Link } from 'react-router-dom';
+
 class ControllerPage extends React.Component{
     constructor(props){
         super(props);
@@ -49,6 +51,7 @@ class ControllerPage extends React.Component{
                                     }
                                 }>Delete User</button>
                                 <br></br>
+                {controller.status == 1 && <Link to={`/admin/controllers/${controller.username}`}>Add Hosts For This Controller</Link>}
                 </div>)}
             {/* </ul> */}
         </div>;            
