@@ -100,7 +100,7 @@ class AddThreshold extends React.Component{
                                 <Field name="metricname" as="select" className="form-control">
                                     <option key="#" value="">Select Metric</option>
                                     {this.state.metricList.map(metric =>
-                                        <option key={metric.metricname} value={metric.metricname}>{metric.metricname}</option>
+                                        <option key={metric.name} value={metric.name}>{metric.name}</option>
                                     )}
                                 </Field>
                                 <ErrorMessage name="metricname" component="div" className="invalid-feedback" />
@@ -121,4 +121,95 @@ class AddThreshold extends React.Component{
     }
 }
 
-export { AddThreshold };
+class ViewThreshold extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            thresholdList : [],
+            status : false,
+        }
+    }
+
+    componentDidMount(){
+        thresholdService.getThresholds().then(
+            res => {
+                this.setState({
+                    thresholdList: res,
+                    status: true
+                });
+            }
+        ).catch(
+            err => {
+                console.log(err);
+            }
+        )
+    }
+
+    modifyThreshold(id){
+        let threshold = this.state.thresholdList[id];
+        console.log(threshold);
+        history.push("/alerts/modify/"+threshold.hostname+"/"+threshold.metricname);
+        window.location.reload();
+    }
+
+    deleteThreshold(id){
+        let threshold = this.state.thresholdList[id];
+        thresholdService.deleteThreshold( threshold.hostname, threshold.metricname).then(
+            res => {
+                console.log(res);
+                window.location.reload();
+            }
+        ).catch(
+            err => {
+                console.log(err);
+            }
+        )
+    }
+
+    render(){
+        const { thresholdList, status } = this.state;
+        return(
+            <div>
+                <h1>View Thresholds</h1>
+                {status ?
+                    <div>
+                        <table className="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Hostname</th>
+                                    <th>Metricname</th>
+                                    <th>Threshold</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {thresholdList.map((threshold,id) =>
+                                    <tr key={id}>
+                                        <td>{threshold.hostname}</td>
+                                        <td>{threshold.metricname}</td>
+                                        <td>{threshold.threshold}</td>
+                                        <td>
+                                            <button className="btn btn-danger" onClick={() => {
+                                                this.deleteThreshold(id)
+                                            }}>Delete</button>
+                                            <button className="btn btn-warning" onClick={() => {
+                                                this.editThreshold(id)
+                                            }}>Edit</button>
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                    :
+                    <div>
+                        Loading...
+                    </div>
+                }
+            </div>
+        );
+    }
+
+}
+
+export { AddThreshold, ViewThreshold };

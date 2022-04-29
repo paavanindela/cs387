@@ -3,7 +3,7 @@ const API_URL = "http://localhost:5000/api/"
 import { authHeader } from "../_helpers/auth-header";
 
 const getThresholds = (username) => {
-    return axios.get(API_URL + "/threshold", {
+    return axios.get(API_URL + "threshold", {
         headers: authHeader()
     }).then(
         (response) => {
@@ -13,7 +13,7 @@ const getThresholds = (username) => {
 }
 
 const modifyThreshold = (hostname, metricname, threshold) => {
-    return axios.put(API_URL + "/threshold", {
+    return axios.put(API_URL + "threshold", {
         hostname,
         metricname,
         threshold
@@ -41,10 +41,8 @@ const addThreshold = ( hostname, metricname, threshold) => {
 }
 
 const deleteThreshold = ( hostname, metricname) => {
-    return axios.delete(API_URL + "threshold", {
-        hostname,
-        metricname
-    }, {
+    console.log(hostname, metricname);
+    return axios.delete(API_URL + "threshold/"+hostname+"/"+metricname, {
         headers: authHeader()
     }).then(
         (response) => {

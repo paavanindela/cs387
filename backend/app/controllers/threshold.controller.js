@@ -31,7 +31,7 @@ exports.addThreshold = (req, res) => {
 };
 
 exports.deleteThreshold = (req, res) => {
-    Threshold.deleteThreshold(req.userId, req.body.hostname, req.body.metricname).then(() => {
+    Threshold.deleteThreshold(req.userId, req.params.hostname, req.params.metricname).then(() => {
         res.status(200).send({message: "threshold delete successful"});
     }).catch(
         err => {
