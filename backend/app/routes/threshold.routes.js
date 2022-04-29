@@ -12,6 +12,6 @@ module.exports = function(app) {
     app.get("/api/threshold", [authJwt.verifyToken], controller.allThreshold);
     app.put("/api/threshold", [authJwt.verifyToken], controller.updateThreshold);
     app.post("/api/threshold", [authJwt.verifyToken], controller.addThreshold);
-    app.delete("/api/threshold", [authJwt.verifyToken], controller.deleteThreshold);
+    app.delete("/api/threshold/:hostname/:metricname", [authJwt.verifyToken], controller.deleteThreshold);
     app.get("/api/message", [authJwt.verifyToken], controller.allMessage);
 };

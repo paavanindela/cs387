@@ -1,6 +1,7 @@
 import React from "react";
 import UserService from "../_services/user.service";
 import { Link } from 'react-router-dom';
+import { history } from "../_helpers/history";
 
 class ControllerPage extends React.Component{
     constructor(props){
@@ -51,7 +52,13 @@ class ControllerPage extends React.Component{
                                     }
                                 }>Delete User</button>
                                 <br></br>
-                {controller.status == 1 && <Link to={`/admin/controllers/${controller.username}`}>Add Hosts For This Controller</Link>}
+                {controller.status == 1 && 
+                <button onClick={
+                                    () => {
+                                        history.push(`/admin/controllers/${controller.username}`)
+                                        window.location.reload();
+                                    }
+                                }>Add Hosts</button>}
                 </div>)}
             {/* </ul> */}
         </div>;            

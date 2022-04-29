@@ -51,15 +51,17 @@ CREATE TABLE ControllerHost(
     FOREIGN KEY(username) references Controller on delete CASCADE,
     FOREIGN KEY(hostname) references Host on delete CASCADE
 );
+
 CREATE TABLE Application(
-    appId int not null,
+    appId SERIAL PRIMARY KEY,
     name varchar(20) not null,
     status int not null check(status between 0 and 1),
     owner varchar(20) not null,
     hostname varchar(20) not null,
-    PRIMARY KEY(appId) ,
+    
     FOREIGN KEY(hostname) references Host on delete CASCADE
 );
+
 CREATE TABLE AppAlertType(
     type varchar(20) not null,
     threshold int not null,

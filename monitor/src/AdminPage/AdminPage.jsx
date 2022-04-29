@@ -45,6 +45,10 @@ class AdminPage extends React.Component {
                     <a style={{color:'white',float:'left',width:'26.67%',background:"#9a9dad",border:'1px solid #bbb',textAlign:'center',alignContent:'center',padding:"20px 20px"}}>
                         <Link to="/admin/alerts" style={{color:'white',padding:"20px 20px"}}>Alerts</Link></a>
                 </div>
+                    <li key={"applications"}>
+                        <Link to="/admin/applications">Applications</Link>
+                    </li>
+                {/* </ul> */}
                 {/* <div>
                     {users &&
                         <ul>

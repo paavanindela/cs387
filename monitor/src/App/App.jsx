@@ -12,8 +12,9 @@ import { ControllerPage,ControllerHomePage } from '@/ControllerPage';
 import { AlertPage, AddAlertPage } from '@/AlertPage';
 import { ApplicationPage } from '@/ApplicationPage';
 import { GraphPage } from '@/GraphPage';
+import { AddApplicationPage } from '@/AddApplicationPage';
 import { ViewMessages } from '../AlertPage/ViewMessage';
-import { AddThreshold } from '../AlertPage/ConfigurePage';
+import { AddThreshold,ViewThreshold } from '../AlertPage/ConfigurePage';
 import { ControllerHostPage } from '@/ControllerHostPage';
 
 
@@ -70,6 +71,7 @@ class App extends React.Component {
                             <Route path='hosts' element={<HostPage />} />
                             <Route path='hosts/add' element={<HostAddPage />} />
                             <Route path='hosts/edit/:id' element={<HostEditPage />} />
+                            <Route path='hostaddapps/:id' element={<AddApplicationPage />} />
                             <Route path='controllers' element={<ControllerPage />} />
                             <Route path='alerts' element={<AlertPage />} />
                             <Route path='alerts/add' element={<AddAlertPage />} />
@@ -79,9 +81,10 @@ class App extends React.Component {
                         <Route path='graphs' element={<GraphPage />} />
                         <Route path='controllers' element={<ControllerHomePage />} />
                         <Route path='alerts' element={<ViewMessages />} />
+                        <Route path='alerts/view' element={<ViewThreshold/>} />
                         <Route path='alerts/add' element={<AddThreshold/>}/>
                         {/* <Route path='alerts/modify' element={<ModifyThreshold/>}/> */}
-                        {/* <Route path='alerts/configure' element={<ConfigurePage/>}/> */}
+                        {/* <Route path='alerts/delete' element={<DeleteThreshold/>}/> */}
                     </Route>
                     <Route path='/login' element={<LoginPage />} />
                     <Route path='/register' element={<RegisterPage />} />

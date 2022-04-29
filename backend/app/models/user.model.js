@@ -58,12 +58,15 @@ async function revokeAccess(username){
 }
 
 async function addController(username, hostname) {
+  console.log(hostname);
+  for (i=0; i<hostname.length; i++){
   const rows = await pool.query(
     "INSERT into controllerhost (username, hostname) values ($1, $2)",
-    [username, hostname]
+    [username, hostname[i]]
  );
+}
  return {
-   'rows': rows.rows,
+   'rows': 'success',
  }
 }
 

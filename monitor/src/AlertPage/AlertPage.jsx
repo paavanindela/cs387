@@ -14,7 +14,7 @@ class AlertPage extends React.Component {
     componentDidMount() {
         metricService.getAlerts().then(data => {
             this.setState(
-                { alertList : data.data
+                { alertList : data
                 , isLoading: false });
         });
     }

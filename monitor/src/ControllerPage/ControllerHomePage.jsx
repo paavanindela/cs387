@@ -17,11 +17,11 @@ class ControllerHomePage extends React.Component{
                     <li key={"alert"}>
                         <Link to="/alerts">Alerts</Link>
                     </li>
+                    <li key={"view"}>
+                        <Link to="/alerts/view">View</Link>
+                    </li>
                     <li key={"add"}>
                         <Link to="/alerts/add">Add</Link>
-                    </li>
-                    <li key={"modify"}>
-                        <Link to="/alerts/modify">Modify</Link>
                     </li>
                 </ul>
             </div>
