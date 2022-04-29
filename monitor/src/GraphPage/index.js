@@ -1,1 +1,2 @@
-export * from './CpuPage';
+export * from './GraphPage';
+// export * from './MemPage';

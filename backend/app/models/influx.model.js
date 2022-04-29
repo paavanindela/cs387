@@ -13,11 +13,11 @@ const config = require('../config/influx.config')
 const queryApi = new InfluxDB.InfluxDB({url:config.URL, token:config.TOKEN}).getQueryApi(config.ORG)
 
 // function to convert hostList to flux query
-function convertHostList(hostList) {
+function convertList(List,value) {
     let influxQuery = "|> filter(fn: (r) => ";
-    for (let i = 0; i < hostList.length; i++) {
-        influxQuery += 'r["host"] == \"' + hostList[i] + '\"';
-        if (i != hostList.length - 1)
+    for (let i = 0; i < List.length; i++) {
+        influxQuery += 'r["'+value+'"] == \"' + List[i] + '\"';
+        if (i != List.length - 1)
             influxQuery += ' or ';
     } 
     influxQuery += ')';
@@ -25,19 +25,20 @@ function convertHostList(hostList) {
 }
 
 
-async function getCpu(hostList) {
+async function getData(hostList,metricList,start,end,parameter) {
     // insert the converted hostlist into fluxquery
-    let influxQuery = convertHostList(hostList);
+    let hostX = convertList(hostList,"host");
+    // let appX = convertList(applicationList,"_measurement");
+    let metricX = convertList(metricList,"_field");
     const fluxQuery = 'from(bucket: "PROJECT")\
-        |> range(start: -30d, stop: -20d)\
-        |> filter(fn: (r) => r["_measurement"] == "cpu")\
-        |> filter(fn: (r) => r["_field"] == "usage_system")\
-        |> filter(fn: (r) => r["cpu"] == "cpu-total")\ '
-        + influxQuery + '\
+        |> range(start: '+start+', stop: '+end+')\
+        |> filter(fn: (r) => r["_measurement"] == "'+parameter+'")\ '
+        + metricX + '\ '
+        + hostX + '\
         |> aggregateWindow(every: 10m, fn: mean, createEmpty: false)\
         |> yield(name: "mean")'
     let res = [];
-    const result = await queryApi.collectRows(fluxQuery)
+    await queryApi.collectRows(fluxQuery)
     .then(
       data => {
         res = data
@@ -50,4 +51,28 @@ async function getCpu(hostList) {
     return res;
 }
 
-module.exports = {getCpu}
+// async function getMem(hostList){
+//     let influxQuery = convertList(hostList);
+//     const fluxQuery = 'from(bucket: "PROJECT")\
+//         |> range(start: -30d, stop: -20d)\
+//         |> filter(fn: (r) => r["_measurement"] == "mem")\
+//         |> filter(fn: (r) => r["_field"] == "used_percent")\ '
+//         + influxQuery + '\
+//         |> aggregateWindow(every: 10m, fn: mean, createEmpty: false)\
+//         |> yield(name: "mean")'
+//     let res = [];
+//     const result = await queryApi.collectRows(fluxQuery)
+//     .then(
+//         data => {
+//             res = data
+//             console.log('COLLECT ROWS SUCCESS')
+//         }
+//     )
+//     .catch(error => {
+//         console.error(error)
+//         console.log('COLLECT ROWS ERROR')
+//     }
+//     );    
+// }
+
+module.exports = {getData}

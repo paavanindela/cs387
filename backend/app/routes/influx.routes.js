@@ -9,7 +9,16 @@ module.exports = function(app) {
         );
         next();
     });
-    app.get("/api/influx/cpu",
+    // app.get("/api/influx/cpu",
+    //     [authJwt.verifyToken],
+    //     controller.getCpu);
+    // app.get("/api/influx/memory",
+    //     [authJwt.verifyToken],
+    //     controller.getMem);
+    // app.get("/api/influx/postgresql",
+    //     [authJwt.verifyToken],
+    //     controller.getPostgresql);
+    app.get("/api/influx/data",
         [authJwt.verifyToken],
-        controller.getCpu);
+        controller.getData);
 };
