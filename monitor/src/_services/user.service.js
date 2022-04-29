@@ -7,9 +7,6 @@ const getPublicContent = () => {
 const getUserBoard = () => {
   return axios.get(API_URL + "test/user", { headers: authHeader() });
 };
-// const getModeratorBoard = () => {
-//   return axios.get(API_URL + "mod", { headers: authHeader() });
-// };
 const getAdminBoard = () => {
   return axios.get(API_URL + "test/admin", { headers: authHeader() });
 };
@@ -19,14 +16,28 @@ const getAll = () => {
 }
 
 const makeActive = (username) => {
-  return axios.put(API_URL + 'active',{ headers: authHeader() } );
+  return axios.put(API_URL + 'active',{username},{ headers: authHeader() } );
 }
+
+const revokeAccess = (username) => {
+  return axios.put(API_URL + 'revoke',{username},{ headers: authHeader() } );
+}
+
+const deleteController = (username) => {
+  return axios.delete(API_URL + 'controller/delete/'+ username,{ headers: authHeader() } ).then(
+    (response) => {
+      return response.data;
+    }
+  );
+}
+
 const UserService = {
   getPublicContent,
   getUserBoard,
-//   getModeratorBoard,
   getAdminBoard,
   getAll,
   makeActive,
+  revokeAccess,
+  deleteController
 };
 export default UserService;

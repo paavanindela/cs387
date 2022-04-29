@@ -10,17 +10,12 @@ class AdminPage extends React.Component {
             history.push('/');
             window.location.reload();
         }
-        this.state = {
-            users: null
-        };
     }
 
     componentDidMount() {
-        UserService.getAll().then(res => { this.setState({ users: res.data.user.rows }); }, error => { console.log(error) });
     }
 
     render() {
-        const { users } = this.state;
         return (
             <div>
                 {/* <nav className="navbar navbar-expand navbar-dark bg-dark">

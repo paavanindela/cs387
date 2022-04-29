@@ -5,7 +5,7 @@ async function findAllMetric() {
     const rows = await pool.query(
         "select * from metric"
     );
-
+    
     return {
         'rows': rows.rows,
     }
