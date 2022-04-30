@@ -94,7 +94,7 @@ class AddThreshold extends React.Component {
                     }}
                 >
                     {({ isSubmitting }) => (
-                        <Form style={{alignItems:"center",textAlign:'center'}}>
+                        <Form style={{alignItems:"center",textAlign:'center',margin:'5%'}}>
                             <div className="form-group"> 
                                 <label htmlFor="hostname">Hostname</label>
                                 &nbsp;&nbsp;
@@ -186,28 +186,29 @@ class ViewThreshold extends React.Component {
         const { thresholdList, status } = this.state;
         return (
             <div>
-                <h1>View Thresholds</h1>
+                    <div style={{alignItems:'center',textAlign:'center'}} >
+                <h1>View Thresholds</h1></div>
                 {status ?
                     <div>
-                        <table className="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Hostname</th>
-                                    <th>Metricname</th>
-                                    <th>Threshold</th>
-                                    <th>Actions</th>
+                        <table className="table table-striped" style={{width:'100%',border:"1px solid black"}}>
+                            <thead style={{border:"1px solid black"}}>
+                                <tr style={{border:"1px solid black"}}>
+                                    <th style={{border:"1px solid black"}}>Hostname</th>
+                                    <th style={{border:"1px solid black"}}>Metricname</th>
+                                    <th style={{border:"1px solid black"}}>Threshold</th>
+                                    <th style={{border:"1px solid black"}}>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {thresholdList.map((threshold, id) =>
-                                    <tr key={id}>
-                                        <td>{threshold.hostname}</td>
-                                        <td>{threshold.metricname}</td>
-                                        <td>{threshold.threshold}</td>
-                                        <td>
+                                    <tr key={id}  style={{border:"1px solid black",borderRadius:'5px'}}>
+                                        <td style={{border:"1px solid black",borderRadius:'5px',textAlign:'center'}}>{threshold.hostname}</td>
+                                        <td style={{border:"1px solid black",borderRadius:'5px',textAlign:'center'}}>{threshold.metricname}</td>
+                                        <td style={{border:"1px solid black",borderRadius:'5px',textAlign:'center'}}>{threshold.threshold}</td>
+                                        <td style={{border:"1px solid black",borderRadius:'5px',textAlign:'center'}}>
                                             <button className="btn btn-danger" onClick={() => {
                                                 this.deleteThreshold(id)
-                                            }}>Delete</button>
+                                            }}>Delete</button>&nbsp;&nbsp;
                                             <button className="btn btn-warning" onClick={() => {
                                                 this.modifyThreshold(id)
                                             }}>Edit</button>

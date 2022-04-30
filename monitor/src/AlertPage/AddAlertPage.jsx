@@ -37,7 +37,7 @@ class AddAlertPage extends React.Component{
                                 }
                             )
                     }}>
-                        <Form style={{alignItems:"center",textAlign:'center'}}>
+                        <Form style={{alignItems:"center",textAlign:'center',margin:'5%'}}>
                         <div className="form-group">
                             <label htmlFor="metric">Metric</label>
                             &nbsp;&nbsp;

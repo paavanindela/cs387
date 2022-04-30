@@ -55,17 +55,22 @@ class ControllerHostPage extends React.Component {
     return (
       // form component to select start and end times
       <div>
-        <h1> CONTROLLER HOST PAGE </h1>
-        Previously Selected
+                    <div style={{alignItems:'center',textAlign:'center'}} >
+        <h1> CONTROLLER HOST PAGE </h1></div>
+        <br></br>
+        <div style={{alignItems:'center',textAlign:'center'}} ><h2>Previously Selected</h2></div>
+                    <div style={{alignItems:'center',textAlign:'center',border:"2px solid black",margin:'5px'}} >
         {selectedHostList.map(
           (host, index) => {
             return (
-              <div key={index}>
+              <div key={index} style={{alignItems:'center',textAlign:'center'}}>
                 {host}
+                <br></br>
               </div>
             )
           }
         )}
+        </div>
         <Formik
           initialValues={{
 
@@ -84,11 +89,15 @@ class ControllerHostPage extends React.Component {
             });
           }}
           render={({ errors, status, isSubmitting }) => (
-            <Form>
+            <Form style={{alignItems:"center",textAlign:'center'}}>
               <div className="form-group">
-
+<br></br>
+<br></br>
                 <div className='form-group'>
-                  <label htmlFor="selectedHostList">Hosts</label>
+        <div style={{alignItems:'center',textAlign:'center'}} ><label htmlFor="selectedHostList"><h2>Hosts</h2></label></div>
+
+                  
+                  <div style={{alignItems:'center',textAlign:'center',border:"2px solid black",margin:'5px'}} >
                   <Field name="selectedHostList" as="select" className={'form-control' + (errors.selectedHostList && touched.selectedHostList ? ' is-invalid' : '')} multiple>
                     {hostList.map((host, index) =>
                       <option key={index} value={host.hostname}>{host.hostname}</option>
@@ -97,13 +106,18 @@ class ControllerHostPage extends React.Component {
                   <ErrorMessage name="selectedHostList" component="div" className="invalid-feedback" />
                 </div>
               </div>
+              </div>
               <div className="form-group">
                 <button type="submit" className="btn btn-primary mr-2">SELECT</button>
               </div>
             </Form>
           )}
         />
+                <br></br>
+
+                    <div style={{alignItems:'center',textAlign:'center'}} >
         <button type="button" className="btn btn-primary" onClick={() => { history.back() }}>BACK</button>
+      </div>
       </div>
     );
   }

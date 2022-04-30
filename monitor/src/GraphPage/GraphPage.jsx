@@ -136,7 +136,7 @@ class GraphPage extends React.Component {
             });
           }}
           render={({ errors, status, touched, isSubmitting }) => (
-            <Form style={{alignItems:"center",textAlign:'center'}}>
+            <Form style={{alignItems:"center",textAlign:'center',margin:'5%'}}>
               <div className="form-group">
                 <div className='form-group'>
                   <label htmlFor="startTime">Start Time</label>
