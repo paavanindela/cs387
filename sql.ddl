@@ -1,14 +1,8 @@
 DROP TABLE IF EXISTS Host CASCADE;
-DROP TABLE IF EXISTS HostAlertType CASCADE;
-DROP TABLE IF EXISTS HostAlert CASCADE;
 DROP TABLE IF EXISTS Controller CASCADE;
 DROP TABLE IF EXISTS ControllerHost CASCADE;
 DROP TABLE IF EXISTS Application CASCADE;
-DROP TABLE IF EXISTS AppAlertType CASCADE;
-DROP TABLE IF EXISTS AppAlert CASCADE;
 DROP TABLE IF EXISTS Metric CASCADE;
-DROP TABLE IF EXISTS ControllerApplication CASCADE;
-DROP TABLE IF EXISTS ControllerMetric CASCADE;
 DROP TABLE IF EXISTS Message;
 DROP TABLE IF EXISTS Threshold;
 DROP FUNCTION IF EXISTS tf1 CASCADE;
@@ -23,19 +17,6 @@ CREATE TABLE Host(
     osType int,
     influx boolean not null ,
     PRIMARY KEY(hostname)
-);
-CREATE TABLE HostAlertType(
-    type varchar(20) not null,
-    threshold int not null,
-    PRIMARY KEY(type) 
-);
-CREATE TABLE HostAlert(
-    type varchar(20) not null,
-    hostname varchar(20) not null,
-    message text not null,
-    PRIMARY KEY(type, hostname) ,
-    FOREIGN KEY(type) references HostAlertType on delete CASCADE,
-    FOREIGN KEY(hostname) references Host on delete CASCADE
 );
 CREATE TABLE Controller(
     username varchar(20) not null,
@@ -59,33 +40,6 @@ CREATE TABLE Application(
     hostname varchar(20) not null,
     PRIMARY KEY(appId) ,
     FOREIGN KEY(hostname) references Host on delete CASCADE
-);
-CREATE TABLE AppAlertType(
-    type varchar(20) not null,
-    threshold int not null,
-    PRIMARY KEY(type) 
-);
-CREATE TABLE AppAlert(
-    appId int not null,
-    type varchar(20) not null,
-    message text not null,
-    PRIMARY KEY(appId, type) ,
-    FOREIGN KEY(appId) references Application on delete CASCADE,
-    FOREIGN KEY(type) references AppAlertType on delete CASCADE
-);
-CREATE TABLE ControllerApplication(
-    username varchar(20) not null,
-    appId int not null,
-    PRIMARY KEY(username, appId),
-    FOREIGN KEY(username) references Controller on delete CASCADE,
-    FOREIGN KEY(appId) references Application on delete CASCADE
-);
-CREATE TABLE ControllerMetric(
-    username varchar(20) not null,
-    name varchar(20) not null,
-    PRIMARY KEY(username, name),
-    FOREIGN KEY(username) references Controller on delete CASCADE,
-    FOREIGN KEY(name) references Metric on delete CASCADE
 );
 CREATE TABLE Message(
     msgId int not null,
