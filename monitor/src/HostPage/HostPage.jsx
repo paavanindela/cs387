@@ -52,37 +52,50 @@ class HostPage extends React.Component {
         const { hosts, status } = this.state;
         if(!status) {
             return <div>
-                Loading...
-                <button onClick={() => {
+                <div style={{alignItems:'center',textAlign:'center'}} >
+                    <button onClick={() => {
                         history.push('/admin/hosts/add');
                         window.location.reload();
                     }}>ADD HOST</button>
-                <p></p>
+                    </div>
+                    <p></p>
+                    <div style={{alignItems:'center',textAlign:'center'}} >
                 <button onClick={() => history.back()} className="btn btn-secondary">Back</button>
-            </div>;
+                </div>
+                            </div>;
         }
             return (
                 <div>
-                    <h1>Hosts</h1>
+                    <div style={{alignItems:'center',textAlign:'center'}} >
+                    <h1>Hosts</h1></div>
                     <div>
                         {hosts &&
                             <ul>
-                                {hosts.map(host => <div key={host.hostname}>
-                                    <li> {host.hostname} - {host.ipaddress} </li>
+                                {hosts.map(host => <div style={{border:'2px solid blue',margin:"25px",padding:"10px 10px",fontSize:"30px"}}  key={host.hostname}>
+                                     {host.hostname} - {host.ipaddress}
+                                    <br></br>
                                     <button onClick={() => this.addApps(host)}>ADD APPS</button>
+                                    &nbsp;
+                                    &nbsp;
                                     <button onClick={() => this.modify(host)}>MODIFY</button>
+                                    &nbsp;
+                                    &nbsp;
                                     <button onClick={() => this.delete(host)}>DELETE</button>
                                 </div>
                                 )}
                             </ul>
                         }
                     </div>
+                    <div style={{alignItems:'center',textAlign:'center'}} >
                     <button onClick={() => {
                         history.push('/admin/hosts/add');
                         window.location.reload();
                     }}>ADD HOST</button>
+                    </div>
                     <p></p>
+                    <div style={{alignItems:'center',textAlign:'center'}} >
                 <button onClick={() => history.back()} className="btn btn-secondary">Back</button>
+                </div>
                 </div>
             );
     }

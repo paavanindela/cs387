@@ -62,7 +62,8 @@ class AddThreshold extends React.Component {
         const { hostname, metricname, threshold, hostList, metricList,error } = this.state;
         return (
             <div>
-                <h1>Configure Page</h1>
+                    <div style={{alignItems:'center',textAlign:'center'}} >
+                <h1>Configure Page</h1></div>
                 { error!="" && <div className="alert alert-danger">{error}</div>
                     && <button className="btn btn-primary" onClick={() => history.back()}>Error Occured! Go Back</button>
                 }
@@ -93,9 +94,10 @@ class AddThreshold extends React.Component {
                     }}
                 >
                     {({ isSubmitting }) => (
-                        <Form>
-                            <div className="form-group">
+                        <Form style={{alignItems:"center",textAlign:'center',margin:'5%'}}>
+                            <div className="form-group"> 
                                 <label htmlFor="hostname">Hostname</label>
+                                &nbsp;&nbsp;
                                 <Field name="hostname" as="select" className="form-control">
                                     <option key="#" value="">Select Host</option>
                                     {this.state.hostList.map(host =>
@@ -104,8 +106,10 @@ class AddThreshold extends React.Component {
                                 </Field>
                                 <ErrorMessage name="hostname" component="div" className="invalid-feedback" />
                             </div>
+                            <br></br>
                             <div className="form-group">
                                 <label htmlFor="metricname">Metricname</label>
+                                &nbsp;&nbsp;
                                 <Field name="metricname" as="select" className="form-control">
                                     <option key="#" value="">Select Metric</option>
                                     {this.state.metricList.map(metric =>
@@ -113,12 +117,15 @@ class AddThreshold extends React.Component {
                                     )}
                                 </Field>
                                 <ErrorMessage name="metricname" component="div" className="invalid-feedback" />
-                            </div>
+                            </div>                  
+                            <br></br>
                             <div className="form-group">
                                 <label htmlFor="threshold">Threshold</label>
+                                &nbsp;&nbsp;
                                 <Field name="threshold" type="text" className="form-control" />
                                 <ErrorMessage name="threshold" component="div" />
                             </div>
+                            <br></br>
                             <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
                                 Submit
                             </button>
@@ -179,28 +186,29 @@ class ViewThreshold extends React.Component {
         const { thresholdList, status } = this.state;
         return (
             <div>
-                <h1>View Thresholds</h1>
+                    <div style={{alignItems:'center',textAlign:'center'}} >
+                <h1>View Thresholds</h1></div>
                 {status ?
                     <div>
-                        <table className="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Hostname</th>
-                                    <th>Metricname</th>
-                                    <th>Threshold</th>
-                                    <th>Actions</th>
+                        <table className="table table-striped" style={{width:'100%',border:"1px solid black"}}>
+                            <thead style={{border:"1px solid black"}}>
+                                <tr style={{border:"1px solid black"}}>
+                                    <th style={{border:"1px solid black"}}>Hostname</th>
+                                    <th style={{border:"1px solid black"}}>Metricname</th>
+                                    <th style={{border:"1px solid black"}}>Threshold</th>
+                                    <th style={{border:"1px solid black"}}>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {thresholdList.map((threshold, id) =>
-                                    <tr key={id}>
-                                        <td>{threshold.hostname}</td>
-                                        <td>{threshold.metricname}</td>
-                                        <td>{threshold.threshold}</td>
-                                        <td>
+                                    <tr key={id}  style={{border:"1px solid black",borderRadius:'5px'}}>
+                                        <td style={{border:"1px solid black",borderRadius:'5px',textAlign:'center'}}>{threshold.hostname}</td>
+                                        <td style={{border:"1px solid black",borderRadius:'5px',textAlign:'center'}}>{threshold.metricname}</td>
+                                        <td style={{border:"1px solid black",borderRadius:'5px',textAlign:'center'}}>{threshold.threshold}</td>
+                                        <td style={{border:"1px solid black",borderRadius:'5px',textAlign:'center'}}>
                                             <button className="btn btn-danger" onClick={() => {
                                                 this.deleteThreshold(id)
-                                            }}>Delete</button>
+                                            }}>Delete</button>&nbsp;&nbsp;
                                             <button className="btn btn-warning" onClick={() => {
                                                 this.modifyThreshold(id)
                                             }}>Edit</button>

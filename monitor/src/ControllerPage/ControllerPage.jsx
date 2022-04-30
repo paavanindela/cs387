@@ -29,16 +29,19 @@ class ControllerPage extends React.Component{
             </div>
         }
         return <div>
-            <h1>Controller Page</h1>
-            <ul>
-                {controllerList.map(controller => <div key={controller.username}><li>{controller.username}</li>
-                {controller.status == 0 && <button className='form-control' onClick={
+            
+                    <div style={{alignItems:'center',textAlign:'center'}} >
+            <h1>Controller Page</h1></div>
+            {/* <ul> */}
+                {controllerList.map(controller => <div style={{border:'2px solid blue',margin:"45px",padding:"10px 10px",fontSize:"30px"}} key={controller.username}>{controller.username}
+                                <br></br>
+                {controller.status == 0 && <button  onClick={
                                     () => {
                                         UserService.makeActive(controller.username).then(()=>{window.location.reload();});
                                         // window.location.reload();
                                     }
                                 }>Make Active</button>}
-                {controller.status == 1 && <button className="form-control" onClick={
+                {controller.status == 1 && <button  onClick={
                                     () => {
                                         UserService.revokeAccess(controller.username).then(()=>{window.location.reload();});
                                     }  
@@ -48,7 +51,7 @@ class ControllerPage extends React.Component{
                                         let res = UserService.deleteController(controller.username).then(()=>{window.location.reload();}); 
                                     
                                     }
-                                }>Delete User</button>
+                                }>Delete User</button>&nbsp;&nbsp;&nbsp;&nbsp;
                 {controller.status == 1 && 
                 <button className="form-control" onClick={
                                     () => {
@@ -57,7 +60,7 @@ class ControllerPage extends React.Component{
                                     }
                                 }>Add Hosts</button>}
                 </div>)}
-            </ul>
+            {/* </ul> */}
         </div>;            
     }
 }

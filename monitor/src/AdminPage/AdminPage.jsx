@@ -25,8 +25,8 @@ class AdminPage extends React.Component {
                         <Link to="/admin/alerts" className="nav-item nav-link">Alerts</Link> */}
                     {/* </div>
                 </nav> */}
-                <ul>
-                    <li key={"host"}>
+                {/* <ul>
+                    <li key={"host"} >
                         <Link to="/admin/hosts">Hosts</Link>
                     </li>
                     <li key={"controller"}>
@@ -35,10 +35,19 @@ class AdminPage extends React.Component {
                     <li key={"alert"}>
                         <Link to="/admin/alerts">Alerts</Link>
                     </li>
-                    <li key={"applications"}>
-                        <Link to="/admin/applications">Applications</Link>
-                    </li>
-                </ul>
+                </ul> */}
+                <br></br>
+                <div className='navbar' >
+                <a  style={{color:'white',float:'left',background:"#9a9dad",width:'18%',marginLeft:'5%',border:'1px solid #bbb',textAlign:'center',alignContent:'center',padding:"20px 20px"}}>
+                        <Link to="/admin/controllers" style={{color:'white',padding:"20px 20px"}}>Controllers</Link></a>
+                    <a  style={{color:'white',background:"#9a9dad",float:'left',width:'18%',alignItems:'center',border:'1px solid #bbb',textAlign:'center',alignContent:'center',padding:"20px 20px"}}>
+                        <Link to="/admin/hosts" style={{color:'white',padding:"20px 20px 20px 20px"}}>Hosts</Link></a>
+                    <a style={{color:'white',float:'left',width:'18%',background:"#9a9dad",border:'1px solid #bbb',textAlign:'center',alignContent:'center',padding:"20px 20px"}}>
+                        <Link to="/admin/alerts" style={{color:'white',padding:"20px 20px"}}>Alerts</Link></a>
+                        <a style={{color:'white',float:'left',width:'18%',background:"#9a9dad",border:'1px solid #bbb',textAlign:'center',alignContent:'center',padding:"20px 20px"}}>
+                        <Link to="/admin/applications" style={{color:'white',padding:"20px 20px"}}>Applications</Link></a>
+                </div>
+                {/* </ul> */}
                 {/* <div>
                     {users &&
                         <ul>

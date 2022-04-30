@@ -32,12 +32,15 @@ class HostEditPage extends React.Component{
         const { host, status } = this.state;
         if(!status) {
             return <div>
+                <div style={{alignItems:'center',textAlign:'center'}} >
+                <h2>Modify a Host</h2></div>
                 Loading...
             </div>;
         }
         return (
             <div>
-                <h2>Add a Host</h2>
+                    <div style={{alignItems:'center',textAlign:'center'}} >
+                <h2>Modify a Host</h2></div>
                 <Formik
                     initialValues={{
                         hostname: host.hostname,
@@ -69,24 +72,31 @@ class HostEditPage extends React.Component{
                             )
                     }}
                     render={({ errors, status, touched, isSubmitting }) => (
-                        <Form>
+                        <Form style={{alignItems:"center",textAlign:'center'}}>
                             <div className="form-group">
-                                <label htmlFor="hostname">Hostname</label>
+                                <label htmlFor="hostname">Hostname   </label>
+                                &nbsp;&nbsp;
                                 <Field name="hostname" type="text" className={'form-control' + (errors.hostname && touched.hostname ? ' is-invalid' : '')} />
                                 <ErrorMessage name="hostname" component="div" className="invalid-feedback" />
                             </div>
+                            <br></br>
                             <div className="form-group">
-                                <label htmlFor="ip">IP</label>
+                                <label htmlFor="ip">IP   </label>
+                                &nbsp;&nbsp;
                                 <Field name="ip" type="text" className={'form-control' + (errors.ip && touched.ip ? ' is-invalid' : '')} />
                                 <ErrorMessage name="ip" component="div" className="invalid-feedback" />
                             </div>
+                            <br></br>
                             <div className="form-group">
-                                <label htmlFor="mac">MAC</label>
+                                <label htmlFor="mac">MAC   </label>
+                                &nbsp;&nbsp;
                                 <Field name="mac" type="text" className={'form-control' + (errors.mac && touched.mac ? ' is-invalid' : '')} />
                                 <ErrorMessage name="mac" component="div" className="invalid-feedback" />
                             </div>
+                            <br></br>
                             <div className='form-group'>
-                                <label htmlFor="os">OS</label>
+                                <label htmlFor="os">OS   </label>
+                                &nbsp;&nbsp;
                                 <Field name="os" as="select" className={'form-control' + (errors.os && touched.os ? ' is-invalid' : '')}>
                                     <option value={1}>Windows</option>
                                     <option value={2}>Linux</option>
@@ -94,11 +104,14 @@ class HostEditPage extends React.Component{
                                 </Field>
                                 <ErrorMessage name="os" component="div" className="invalid-feedback" />
                             </div>                         
+                            <br></br>
                             <div className="form-group">
-                                <label htmlFor="influx">Influx</label>
+                                <label htmlFor="influx">Influx   </label>
+                                &nbsp;&nbsp;
                                 <Field name="influx" type="checkbox" className={'form-control' + (errors.influx && touched.influx ? ' is-invalid' : '')} />
                                 <ErrorMessage name="influx" component="div" className="invalid-feedback" />
                             </div>
+                            <br></br>
                             <div className="form-group">
                                 <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
                                     MODIFY
@@ -114,7 +127,9 @@ class HostEditPage extends React.Component{
                     )}
                 />
                 <p></p>
+                    <div style={{alignItems:'center',textAlign:'center'}} >
                 <button onClick={() => history.back()} className="btn btn-secondary">Back</button>
+            </div>
             </div>
         );
     }

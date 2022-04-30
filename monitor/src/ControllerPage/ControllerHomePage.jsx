@@ -1,15 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-class ControllerHomePage extends React.Component{
-    constructor(props){
+class ControllerHomePage extends React.Component {
+    constructor(props) {
         super(props);
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
-                <h1>Controller Home Page</h1>
+                <div style={{ alignItems: 'center', textAlign: 'center' }} >
+                    <h1>Controller Home Page</h1></div>
+                
                 <ul>
                     <li key={"graphs"}>
                         <Link to="/graphs">Graphs</Link>
@@ -29,4 +31,4 @@ class ControllerHomePage extends React.Component{
     }
 }
 
-export {ControllerHomePage};
+export { ControllerHomePage };

@@ -51,14 +51,14 @@ class App extends React.Component {
         const { currentUser,isActive , isAdmin } = this.state;
         return (
             <Router history={history}>
-                <div>
+                <div style={{color:"white",backgroundColor: '#333',overflow:"hidden"}}>
                     {currentUser &&
                         <nav className="navbar navbar-expand navbar-dark bg-dark">
                             <div className="navbar-nav">
-                                <Link to="/" className="nav-item nav-link">Home</Link>
-                                {isAdmin && <Link to="/admin" className="nav-item nav-link">Admin</Link>}
-                                {currentUser.role==1 && <Link to="/controllers" className="nav-item nav-link">Controller</Link>}
-                                <a onClick={this.logout} className="nav-item nav-link">Logout</a>
+                                <Link to="/" style={{padding: "14px 26px",float:"left",color:'white',border:'1px solid #bbb'}} className="nav-item nav-link">Home</Link>
+                                {isAdmin && <Link to="/admin" style={{padding: "14px 26px",color:'white',float:"left",border:'1px solid #bbb'}} className="nav-item nav-link">Admin</Link>}
+                                {currentUser.role==1 && <Link to="/controllers" style={{padding: "14px 26px",color:'white',float:"left",border:'1px solid #bbb'}} className="nav-item nav-link">Controller</Link>}
+                                <a onClick={this.logout} style={{float:'right',padding: "14px 16px",color:'White',font:'large',background:'grey',border:'1px solid #bbb'}}  className="nav-item nav-link ">Logout</a>
                             </div>
                         </nav>
                     }

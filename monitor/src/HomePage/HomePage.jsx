@@ -20,9 +20,11 @@ class HomePage extends React.Component {
     render() {
         const { currentUser, userFromApi } = this.state;
         return (
-            <div>
-                <h1>Home</h1>
-                <p>Your role is: <strong>{currentUser.role==2?"ADMIN":currentUser.role==1?"CONTROLLER":"INACTIVE"}</strong>.</p>
+            <div style={{alignItems:'center'}}>
+                <h1 style={{alignItems:'center',textAlign:'center',background:'orange',margin:'0',padding:'15px'}} >HOME</h1>
+                <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '80vh',background:'#ddd'}}>
+                    <p>Your role is:  </p>&nbsp;&nbsp;&nbsp;&nbsp;<h1 style={{color:'Blue'}}>{currentUser.role==2?"ADMIN":currentUser.role==1?"CONTROLLER":"INACTIVE"}</h1>
+                </div>
             </div>
         );
     }

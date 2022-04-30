@@ -11,7 +11,9 @@ class AddAlertPage extends React.Component{
     render() {
         return (
             <div>
-                <h2>Add an Alert</h2>
+                    <div style={{alignItems:'center',textAlign:'center'}} >
+
+                <h2>Add an Alert</h2></div>
                 <Formik
                     initialValues={{
                         metric: '',
@@ -34,18 +36,23 @@ class AddAlertPage extends React.Component{
                                     // alert(error.response.data.message);
                                 }
                             )
-                    }}
-                >
-                    <Form>
+                    }}>
+                        <Form style={{alignItems:"center",textAlign:'center',margin:'5%'}}>
                         <div className="form-group">
                             <label htmlFor="metric">Metric</label>
+                            &nbsp;&nbsp;
                             <Field name="metric" type="text" className="form-control" />
                             <ErrorMessage name="metric" component="div" className="alert alert-danger" />
                         </div>
+                        <br></br>
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </Form>
                 </Formik>
+                <br></br>
+
+                    <div style={{alignItems:'center',textAlign:'center'}} >
                 <button onClick={() => history.back()} className="btn btn-secondary">Back</button>
+            </div>
             </div>
         );
     }
