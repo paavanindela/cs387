@@ -35,7 +35,7 @@ while(True):
         controller = row[0]
         host = row[1]
         metric = row[2]
-        threshold = 0
+        threshold = row[3]
         print(controller,host,metric,threshold)
         # define the flux query to check whether the value is greater than threshold or not 
         query = f'''from(bucket: "{bucket}")
@@ -68,27 +68,59 @@ while(True):
                     dict.pop("host")
                 if (app is None):
                     dict.pop("application")
-                results.append(str(dict))
+                #  convert dictionary to key: value pairs
+                val = str(dict).replace("'", "")
+                results.append(val[1:-1])
         if(results!=[]):
-            message = "".join(str(results))
-            print(message)
-            cur.execute("INSERT INTO MESSAGE (message,type) VALUES (%s)",(message,0))
+            for message in results:
+                print(message)
+                cur.execute("INSERT INTO MESSAGE (message,username,type) VALUES (%s,%s,%s)",(message,controller,0))
         conn.commit()
         # get derivate using another influx query to do predictive analysis
 
-        prediction_query = f'''from(bucket: "{bucket}")\
+        prediction_query = 'from(bucket: "'+bucket+'")\
             |> range(start:-5m)\
-            |> filter(fn: (r) => r["_field"] == "{metric}")\
-            |> filter(fn: (r) => r["host"] >= "{host}")\
-            |> derivative(unit: 1s,  nonNegative: true, columns: ["_value"], timeColumn: "_time")\
-            |> tail(n,1)\
-            '''
-
+            |> filter(fn: (r) => r["_field"] == "'+metric+'")\
+            |> filter(fn: (r) => r["host"] == "'+host+'")\
+            |> derivative(unit: 1m,  nonNegative: true, columns: ["_value"], timeColumn: "_time")\
+            |> tail(n:1)'
+            
         prediction_result = query_Api.query(org=org, query=prediction_query)
         
-        print(prediction_query)
+        value_query = 'from(bucket: "'+bucket+'")\
+            |> range(start:-5m)\
+            |> filter(fn: (r) => r["_field"] == "'+metric+'")\
+            |> filter(fn: (r) => r["host"] == "'+host+'")\
+            |> tail(n:1)'
+            
+        value_result = query_Api.query(org=org, query=prediction_query)
+        
+        mres = [ {} for i in range(prediction_result.__len__())]
+        
+        tx = 0
+        i = 0
+        for result in prediction_result: # length 1
+            for record in result.records:
+                tx = record.get_time()
+                mres[i]["_derivative"] = record.get_value()
+                mres[i]["_app"] = record.values.get("_measurement")
+                i+=1
+        i = 0
+        for result in value_result: # length 1
+            for record in result.records:
+                mres[0]["_value"] = record.get_value()
+                i+=1
+        
+        # calculate the likely point in time where threshold = derivative
+        List = []
+        for res in mres:
+            if(res.get("_derivative") is not None and res.get("_derivative") !=0):
+                txs = (threshold-res.get("_value"))/res.get("_derivative")
+                List.append("At:"+str(tx)+" Host "+host+" is likely to cross the threshold on "+res.get("_app")+" in "+str(txs)+" ")
         # finally insert the metrics into our database and log the sql query
-    
+        message = "\n".join(List)
+        cur.execute("INSERT INTO MESSAGE (message,username,type) VALUES (%s,%s,%s)",(message,controller,1))
+        
     time.sleep(120)
     
 cur.close()
