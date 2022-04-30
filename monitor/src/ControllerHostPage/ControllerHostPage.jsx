@@ -28,6 +28,7 @@ class ControllerHostPage extends React.Component {
     );
     UserService.getHosts(this.state.username).then(
       res => {
+        console.log(res)
         this.setState({
           selectedHostList: res.hlist.map(
             (host) => host.hostname),

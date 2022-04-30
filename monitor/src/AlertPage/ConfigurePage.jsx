@@ -266,8 +266,21 @@ class ModifyThreshold extends React.Component {
         return (
             <div>
                 <h1>Modify Threshold</h1>
-                <div>{hostname}<br></br>
-                    {metricname}</div>
+                {/* DISPLAY HOST NAME IN A CARD VIEW */}
+                <div className="card" style={{width:'100%',border:"1px solid black"}}>
+                    <div className="card-body">
+                        <h5 className="card-title">Hostname</h5>
+                        <p className="card-text">{hostname}</p>
+                    </div>
+                </div>
+                {/* DISPLAY METRIC NAME IN A CARD VIEW */}
+                <div className="card" style={{width:'100%',border:"1px solid black"}}>
+                    <div className="card-body">
+                        <h5 className="card-title">Metricname</h5>
+                        <p className="card-text">{metricname}</p>
+                    </div>
+                </div>
+                <br></br>
                 <Formik
                     initialValues={{
                         threshold: 0,

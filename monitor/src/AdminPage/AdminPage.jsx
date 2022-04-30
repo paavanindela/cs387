@@ -17,7 +17,7 @@ class AdminPage extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
                 {/* <nav className="navbar navbar-expand navbar-dark bg-dark">
                     <div className="navbar-nav">
                         <Link to="/admin/host" className="nav-item nav-link">Hosts</Link>
