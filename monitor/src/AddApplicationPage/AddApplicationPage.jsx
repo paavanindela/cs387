@@ -2,38 +2,44 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import React from "react";
 import { history } from '../_helpers/history';
-import  HostService from '../_services/host.service';
+import applicationService from '../_services/application.service';
 
-class HostAddPage extends React.Component {
+class AddApplicationPage extends React.Component {
     constructor(props) {
         super(props);
+        var hname = window.location.pathname.split('/')[3];
+        console.log(hname);
+        this.state = {
+            hname
+        }
     }
     render() {
         return (
             <div>
                     <div style={{alignItems:'center',textAlign:'center'}} >
-                <h2>Add a Host</h2></div>
+                <h2>Add a Application</h2></div>
                 <Formik
                     initialValues={{
-                        hostname: '',
-                        ip: '',
-                        mac: '',
-                        os: 0,
-                        influx: false
+                        status: true,
+                        name: '',
+                        owner: ''
+                        
                     }}
                     validationSchema={Yup.object().shape({
-                        hostname: Yup.string().required('hostname is required'),
-                        ip: Yup.string().required("IP Addr is required"),
-                        mac: Yup.string().required("MAC Addr is required"),
-                        os: Yup.number().required("OS Type is required"),
-                        influx: Yup.boolean().required("Status of Influx is required")
+                        
+                        name: Yup.string().required("Name is required"),
+                        
+                        owner: Yup.string().required("Owner is required"),
+                        status: Yup.boolean().required("Status of Application is required")
+                        
                     })}
-                    onSubmit={({ hostname, ip, mac, os, influx }, { setStatus, setSubmitting }) => {
+                    onSubmit={({  name, owner, status }, { setStatus, setSubmitting }) => {
                         setStatus();
-                        HostService.addHost(hostname, ip, mac, os, influx)
+                        let s = status?1:0
+                        applicationService.addAnApp(name, s, owner, this.state.hname)
                             .then(
                                 user => {
-                                    history.push('/admin/hosts');
+                                    // history.push('/admin/hosts');
                                     window.location.reload();
                                 },
                                 error => {
@@ -44,45 +50,34 @@ class HostAddPage extends React.Component {
                     }}
                     render={({ errors, status, touched, isSubmitting }) => (
                         <Form style={{alignItems:"center",textAlign:'center'}}>
+                            {/* <div className="form-group">
+                                <label htmlFor="appid">AppId</label>
+                                <Field name="appid" type="text" className={'form-control' + (errors.hostname && touched.hostname ? ' is-invalid' : '')} />
+                                <ErrorMessage name="appid" component="div" className="invalid-feedback" />
+                            </div> */}
                             <div className="form-group">
-                                <label htmlFor="hostname">Hostname</label>
+                                <label htmlFor="name">Name</label>
                                 &nbsp;&nbsp;
-                                <Field name="hostname" type="text" className={'form-control' + (errors.hostname && touched.hostname ? ' is-invalid' : '')} />
-                                <ErrorMessage name="hostname" component="div" className="invalid-feedback" />
+                                <Field name="name" type="text" className={'form-control' + (errors.ip && touched.ip ? ' is-invalid' : '')} />
+                                <ErrorMessage name="name" component="div" className="invalid-feedback" />
                             </div>
                             <br></br>
                             <div className="form-group">
-                                <label htmlFor="ip">IP</label>
+                                <label htmlFor="owner">Owner</label>
                                 &nbsp;&nbsp;
-                                <Field name="ip" type="text" className={'form-control' + (errors.ip && touched.ip ? ' is-invalid' : '')} />
-                                <ErrorMessage name="ip" component="div" className="invalid-feedback" />
+                                <Field name="owner" type="text" className={'form-control' + (errors.mac && touched.mac ? ' is-invalid' : '')} />
+                                <ErrorMessage name="owner" component="div" className="invalid-feedback" />
                             </div>
                             <br></br>
+
                             <div className="form-group">
-                                <label htmlFor="mac">MAC</label>
+                                <label htmlFor="status">Status</label>
                                 &nbsp;&nbsp;
-                                <Field name="mac" type="text" className={'form-control' + (errors.mac && touched.mac ? ' is-invalid' : '')} />
-                                <ErrorMessage name="mac" component="div" className="invalid-feedback" />
+                                <Field name="status" type="checkbox" className={'form-control' + (errors.influx && touched.influx ? ' is-invalid' : '')} />
+                                <ErrorMessage name="status" component="div" className="invalid-feedback" />
                             </div>
                             <br></br>
-                            <div className='form-group'>
-                                <label htmlFor="os">OS</label>
-                                &nbsp;&nbsp;
-                                <Field name="os" as="select" className={'form-control' + (errors.os && touched.os ? ' is-invalid' : '')}>
-                                    <option value={1}>Windows</option>
-                                    <option value={2}>Linux</option>
-                                    <option value={3}>Mac</option>
-                                </Field>
-                                <ErrorMessage name="os" component="div" className="invalid-feedback" />
-                            </div>                         
-                            <br></br>
-                            <div className="form-group">
-                                <label htmlFor="influx">Influx</label>
-                                &nbsp;&nbsp;
-                                <Field name="influx" type="checkbox" className={'form-control' + (errors.influx && touched.influx ? ' is-invalid' : '')} />
-                                <ErrorMessage name="influx" component="div" className="invalid-feedback" />
-                            </div>
-                            <br></br>
+                            
                             <div className="form-group">
                                 <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
                                     Add
@@ -107,4 +102,4 @@ class HostAddPage extends React.Component {
     }
 }
 
-export { HostAddPage };
+export { AddApplicationPage };

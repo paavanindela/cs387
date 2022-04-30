@@ -8,9 +8,11 @@ module.exports = function(app) {
         );
         next();
     });
+    app.get("/api/app/host/all", controller.getHostApp);
+    app.get("/api/app/all", [authJwt.verifyToken, authJwt.isAdmin], controller.getAllApp);
     app.get("/api/app/:appid", [authJwt.verifyToken, authJwt.isAdmin], controller.oneApp);
     app.put("/api/app/:appid", [authJwt.verifyToken, authJwt.isAdmin], controller.modifyApp);
     app.delete("/api/app/:appid", [authJwt.verifyToken, authJwt.isAdmin], controller.deleteApp);
-    app.get("/api/app", [authJwt.verifyToken, authJwt.isAdmin], controller.allApp);
+    app.get("/api/app", [authJwt.verifyToken], controller.allApp);
     app.post("/api/app", [authJwt.verifyToken, authJwt.isAdmin], controller.addApp);
 };

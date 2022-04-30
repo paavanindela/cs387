@@ -14,7 +14,7 @@ async function allThreshold(username){
 
 async function modifyThreshold(username, hostname, metricname, threshold) {
     const rows = await pool.query(
-        "update threshold set threshold = $4 where username = $1, hostname = $2, metricname = $3",
+        "update threshold set threshold = $4 where username = $1 and hostname = $2 and metricname = $3",
         [username, hostname, metricname, threshold]
     );
 
@@ -36,7 +36,7 @@ async function addThreshold(username, hostname, metricname, threshold) {
 
 async function deleteThreshold(username, hostname, metricname) {
     const rows = await pool.query(
-        "delete from threshold where username=$1, hostname=$2, metricname=$3",
+        "delete from threshold where username=$1 and hostname=$2 and metricname=$3",
         [username, hostname, metricname]
     );
 

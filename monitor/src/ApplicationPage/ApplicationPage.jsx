@@ -19,8 +19,9 @@ class ApplicationPage extends React.Component{
     loadApplications(){
         applicationService.getAllApps()
         .then(applications => {
+            console.log(applications.data);
             this.setState({
-                applications: applications,
+                applications: applications.data,
                 loading: false
             });
         })
@@ -52,28 +53,29 @@ class ApplicationPage extends React.Component{
         const { applications, loading, error } = this.state;
         return (
             <div>
-                <h1>Applications</h1>
-                {error && <div className="alert alert-danger">{error}</div>}
+                    <div style={{alignItems:'center',textAlign:'center'}} >
+                <h1>Applications</h1></div>
+                {error && <div className="alert alert-danger">{error.message}</div>}
                 {loading && <div className="alert alert-info">Loading...</div>}
-                <table className="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Status</th>
-                            <th>Owner</th>
-                            <th>Hostname</th>
-                            <th>Actions</th>
+                <table className="table table-striped" style={{width:'100%',border:"1px solid black"}}>
+                    <thead style={{border:"1px solid black"}}>
+                        <tr style={{border:"1px solid black"}}>
+                            <th style={{border:"1px solid black"}} >Name</th>
+                            <th style={{border:"1px solid black"}}>Status</th>
+                            <th style={{border:"1px solid black"}}>Owner</th>
+                            <th style={{border:"1px solid black"}}>Hostname</th>
+                            <th style={{border:"1px solid black"}}>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody >
                         {applications.map(application => (
-                            <tr key={application.appId}>
-                                <td>{application.name}</td>
-                                <td>{application.status}</td>
-                                <td>{application.owner}</td>
-                                <td>{application.hname}</td>
-                                <td>
-                                    <button className="btn btn-danger" onClick={() => this.deleteApplication(application.appId)}>Delete</button>
+                            <tr key={application.appid} style={{border:"1px solid black",borderRadius:'5px'}}>
+                                <td style={{border:"1px solid black",borderRadius:'5px',textAlign:'center'}}>{application.name}</td>
+                                <td style={{border:"1px solid black",borderRadius:'5px',textAlign:'center'}}>{application.status}</td>
+                                <td style={{border:"1px solid black",borderRadius:'5px',textAlign:'center'}}>{application.owner}</td>
+                                <td style={{border:"1px solid black",borderRadius:'5px',textAlign:'center'}}>{application.hostname}</td>
+                                <td style={{border:"1px solid black",borderRadius:'5px',textAlign:'center'}}>
+                                    <button className="btn btn-danger" onClick={() => this.deleteApplication(application.appid)}>Delete</button>
                                     {/* <button className="btn btn-primary" onClick={() => history.push(`/applications/${application.appId}`)}>Edit</button> */}
                                 </td>
                             </tr>

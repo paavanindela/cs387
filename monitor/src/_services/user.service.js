@@ -32,17 +32,17 @@ const deleteController = (username) => {
 }
 
 const addHosts = (username, list) => {
-  console.log(username)
+  // console.log(username)
   return axios.post(API_URL + 'chcacm/'+username, {'hlist':list,'alist':[],'mlist':[]}, { headers: authHeader() }).then(
     (response) => {
-      console.log(response);
+      // console.log(response);
       return response;
     }
   );
 }
 
 const getHosts = (username) => {
-  console.log(username)
+  // console.log(username)
   return axios.get(API_URL + 'chcacm/'+ username, { headers: authHeader() }).then(
     (response) => {
       return response.data;

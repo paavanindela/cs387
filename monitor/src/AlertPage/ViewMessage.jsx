@@ -7,18 +7,32 @@ class ViewMessages extends React.Component {
         super(props);
         this.state = {
             messages: [],
+            status: false
         }
     }
 
     componentDidMount() {
-        thresholdService.getAllMessages().then(messages => this.setState({ messages }));
+        thresholdService.getAllMessages().then(messages => this.setState({ 
+            messages: messages,
+            status: true })).catch(
+            error => {
+                this.setState({
+                    status: false
+                });
+            }
+        );
     }
 
     render() {
-        const { messages } = this.state;
+        const { status, messages } = this.state;
+        // console.log(messages);
+        if(!status && messages) {
+            return <div>Loading...</div>
+        }
         return (
             <div>
-                <h1>View Messages</h1>
+                    <div style={{alignItems:'center',textAlign:'center'}} >
+                <h1>View Messages</h1></div>
                 <ul>
                     {messages.map(message =>
                         <li key={message.id}>

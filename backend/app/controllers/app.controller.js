@@ -34,7 +34,8 @@ exports.deleteApp = (req, res) => {
 };
 
 exports.addApp = (req, res) => {
-    App.addApp(req.body.appid, req.body.name, req.body.status, req.body.owner, req.body.hostname).then(() => {
+    // console.log(req.body);
+    App.addApp(req.body.name, req.body.status, req.body.owner, req.body.hostname).then(() => {
         res.status(201).send({message: "app created successfully"});
     }).catch(
         err => {
@@ -52,3 +53,25 @@ exports.allApp = (req, res) => {
         }
     );
 };
+
+exports.getAllApp = (req, res) => {
+    App.getAllApp().then(hostlist => {
+        res.status(200).send(hostlist.rows);
+    }).catch(
+        err => {
+            res.status(500).send({message: err.message});
+        }
+    );
+}
+
+exports.getHostApp = (req, res) => {
+    let hostlist = req.query.hnamelist
+    App.findAllApp(hostlist).then(hostlist => {
+        res.status(200).send(hostlist.rows);
+    })
+    .catch(
+        err => {
+            res.status(500).send({message: err.message});
+        }
+    );
+}

@@ -19,13 +19,15 @@ const modifyAnApp = (appid, name, status, owner, hostname) => {
         });
 }
 
-const deleteAnAp = (appid) => {
-    return axios.delete(API_URL + "/" + appid);
+const deleteAnApp = (appid) => {
+    return axios.delete(API_URL + "/" + appid, {
+        headers: authHeader()
+    });
 }
 
-const addAnApp = (appid, name, status, owner, hostname) => {
+const addAnApp = ( name, status, owner, hostname) => {
     return axios.post(API_URL, {
-        appid,
+        
         name,
         status,
         owner,
@@ -35,20 +37,29 @@ const addAnApp = (appid, name, status, owner, hostname) => {
         });
 }
 
-const getAllApps = (hnamelist) => {
-    return axios.get(API_URL ,{
-        headers : authHeader(),
+const getAllApps = () => {
+    // console.log(hnamelist);
+    return axios.get(API_URL +'/all',
+        {headers : authHeader()
+        });
+}
+
+const getHostApp = (hnameList) => {
+    return axios.get(API_URL + '/host/all', {
+        headers: authHeader(),
         params: {
-        hnamelist: hnamelist
-    }});
+            hnamelist: hnameList
+        }
+    });
 }
 
 const applicationService = {
     getAnApp,
     modifyAnApp,
-    deleteAnAp,
+    deleteAnApp,
     addAnApp,
-    getAllApps
+    getAllApps,
+    getHostApp
 }
 
 export default applicationService;
