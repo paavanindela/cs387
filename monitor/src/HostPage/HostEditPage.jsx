@@ -72,7 +72,7 @@ class HostEditPage extends React.Component{
                             )
                     }}
                     render={({ errors, status, touched, isSubmitting }) => (
-                        <Form style={{alignItems:"center",textAlign:'center'}}>
+                        <Form style={{margin:'5%',alignItems:"center",textAlign:'center'}}>
                             <div className="form-group">
                                 <label htmlFor="hostname">Hostname   </label>
                                 &nbsp;&nbsp;

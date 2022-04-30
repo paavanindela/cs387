@@ -59,7 +59,7 @@ class ControllerHostPage extends React.Component {
         <h1> CONTROLLER HOST PAGE </h1></div>
         <br></br>
         <div style={{alignItems:'center',textAlign:'center'}} ><h2>Previously Selected</h2></div>
-                    <div style={{alignItems:'center',textAlign:'center',border:"2px solid black",margin:'5px'}} >
+                    <div style={{padding:'10px', alignItems:'center',textAlign:'center',border:"2px solid black",margin:'5px'}} >
         {selectedHostList.map(
           (host, index) => {
             return (
@@ -89,7 +89,7 @@ class ControllerHostPage extends React.Component {
             });
           }}
           render={({ errors, status, isSubmitting }) => (
-            <Form style={{alignItems:"center",textAlign:'center'}}>
+            <Form style={{margin:'5%',alignItems:"center",textAlign:'center'}}>
               <div className="form-group">
 <br></br>
 <br></br>

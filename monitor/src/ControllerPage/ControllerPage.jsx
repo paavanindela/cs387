@@ -45,15 +45,15 @@ class ControllerPage extends React.Component{
                                     () => {
                                         UserService.revokeAccess(controller.username).then(()=>{window.location.reload();});
                                     }  
-                                }>Make Inactive</button>}
-                <button className="form-control" onClick={
+                                }>Make Inactive</button>}&nbsp;&nbsp;&nbsp;&nbsp;
+                <button onClick={
                                     () => {
                                         let res = UserService.deleteController(controller.username).then(()=>{window.location.reload();}); 
                                     
                                     }
                                 }>Delete User</button>&nbsp;&nbsp;&nbsp;&nbsp;
                 {controller.status == 1 && 
-                <button className="form-control" onClick={
+                <button onClick={
                                     () => {
                                         history.push(`/admin/controllers/${controller.username}`)
                                         window.location.reload();

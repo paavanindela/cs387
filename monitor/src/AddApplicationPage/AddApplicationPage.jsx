@@ -49,7 +49,7 @@ class AddApplicationPage extends React.Component {
                             );
                     }}
                     render={({ errors, status, touched, isSubmitting }) => (
-                        <Form style={{alignItems:"center",textAlign:'center'}}>
+                        <Form style={{margin:'5%', alignItems:"center",textAlign:'center'}}>
                             {/* <div className="form-group">
                                 <label htmlFor="appid">AppId</label>
                                 <Field name="appid" type="text" className={'form-control' + (errors.hostname && touched.hostname ? ' is-invalid' : '')} />
