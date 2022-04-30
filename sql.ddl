@@ -43,11 +43,10 @@ CREATE TABLE Application(
     FOREIGN KEY(hostname) references Host on delete CASCADE
 );
 CREATE TABLE Message(
-    msgId int not null,
+    msgId SERIAL PRIMARY KEY,
     username varchar(20) not null,
     message text not null,
     type int not null check(type between 0 and 1),
-    PRIMARY KEY(msgId),
     FOREIGN KEY(username) references Controller on delete CASCADE
 );
 CREATE TABLE Threshold(

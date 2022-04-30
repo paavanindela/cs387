@@ -38,8 +38,8 @@ class ViewMessages extends React.Component {
                         <li key={message.id}>
                             <div className="card">
                                 <div className="card-body">
-                                    <h5 className="card-title">{message.id}</h5>
-                                    <p className="card-text">{message.text}</p>
+                                    <h5 className="card-title">{message.type==0?"ALERT":"PREDICTION"}</h5>
+                                    <p className="card-text">{message.message}</p>
                                 </div>
                             </div>
                         </li>

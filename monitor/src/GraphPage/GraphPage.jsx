@@ -116,7 +116,8 @@ class GraphPage extends React.Component {
               parameter: parameter,
               selectedHostList: selectedHostList,
               selectedMetricList: selectedMetricList,
-              isLoaded: false
+              isLoaded: false,
+              showForm: false
             }, () => {
               this.getData();
             });
@@ -221,7 +222,7 @@ class GraphPage extends React.Component {
                 return <div key={index}></div>;
             }
           )}
-          <button onClick={() => this.setState({ showForm: true })}>Reload</button>
+          {!this.state.showForm && <button onClick={() => this.setState({ showForm: true })}>BACK</button>}
       </div>
     );
   }
