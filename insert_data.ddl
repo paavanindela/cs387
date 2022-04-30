@@ -111,4 +111,3 @@ INSERT INTO Metric(name) VALUES('tup_updated');
 INSERT INTO Metric(name) VALUES('usage_system');
 INSERT INTO Metric(name) VALUES('usage_user');
 INSERT INTO Metric(name) VALUES('used_percent');
-
