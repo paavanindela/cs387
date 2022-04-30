@@ -57,7 +57,8 @@ class AddThreshold extends React.Component{
         const { hostname, metricname, threshold, hostList, metricList } = this.state;
         return(
             <div>
-                <h1>Configure Page</h1>
+                    <div style={{alignItems:'center',textAlign:'center'}} >
+                <h1>Configure Page</h1></div>
                 <Formik 
                     initialValues={{
                         hostname: "",
@@ -84,9 +85,10 @@ class AddThreshold extends React.Component{
                     }}
                 >
                     {({ isSubmitting }) => (
-                        <Form>
+                        <Form style={{alignItems:"center",textAlign:'center'}}>
                             <div className="form-group"> 
                                 <label htmlFor="hostname">Hostname</label>
+                                &nbsp;&nbsp;
                                 <Field name="hostname" as="select" className="form-control">
                                     <option key="#" value="">Select Host</option>
                                     {this.state.hostList.map(host =>
@@ -95,8 +97,10 @@ class AddThreshold extends React.Component{
                                 </Field>
                                 <ErrorMessage name="hostname" component="div" className="invalid-feedback" />
                             </div>
+                            <br></br>
                             <div className="form-group">
                                 <label htmlFor="metricname">Metricname</label>
+                                &nbsp;&nbsp;
                                 <Field name="metricname" as="select" className="form-control">
                                     <option key="#" value="">Select Metric</option>
                                     {this.state.metricList.map(metric =>
@@ -105,11 +109,14 @@ class AddThreshold extends React.Component{
                                 </Field>
                                 <ErrorMessage name="metricname" component="div" className="invalid-feedback" />
                             </div>                  
+                            <br></br>
                             <div className="form-group">
                                 <label htmlFor="threshold">Threshold</label>
+                                &nbsp;&nbsp;
                                 <Field name="threshold" type="text" className="form-control" />
                                 <ErrorMessage name="threshold" component="div" />
                             </div>
+                            <br></br>
                             <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
                                 Submit
                             </button>

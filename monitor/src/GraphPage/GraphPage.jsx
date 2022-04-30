@@ -67,7 +67,8 @@ class GraphPage extends React.Component {
     return (
       // form component to select start and end times
       <div>
-        <h1> GRAPHS </h1>
+                    <div style={{alignItems:'center',textAlign:'center'}} >
+        <h1> GRAPHS </h1></div>
         <Formik
           initialValues={{
             startTime: '-30d',
@@ -97,7 +98,7 @@ class GraphPage extends React.Component {
             });
           }}
           render={({ errors, status, touched, isSubmitting }) => (
-            <Form>
+            <Form style={{alignItems:"center",textAlign:'center'}}>
               <div className="form-group">
                 <div className='form-group'>
                   <label htmlFor="startTime">Start Time</label>
@@ -111,8 +112,10 @@ class GraphPage extends React.Component {
                   </Field>
                   <ErrorMessage name="startTime" component="div" className="invalid-feedback" />
                 </div>
+                <br></br>
                 <div className='form-group'>
                   <label htmlFor="endTime">End Time</label>
+                                &nbsp;&nbsp;
                   <Field name="endTime" as="select" className={'form-control' + (errors.endTime && touched.endTime ? ' is-invalid' : '')}>
                     <option value={"-30d"}>30 days from now</option>
                     <option value={"-20d"}>20 days from now</option>
@@ -123,8 +126,10 @@ class GraphPage extends React.Component {
                   </Field>
                   <ErrorMessage name="endTime" component="div" className="invalid-feedback" />
                 </div>
+                            <br></br>
                 <div className='form-group'>
                   <label htmlFor="parameter">Parameter</label>
+                                &nbsp;&nbsp;
                   <Field name="parameter" as="select" className={'form-control' + (errors.parameter && touched.parameter ? ' is-invalid' : '')}>
                     {applicationList.map((application, index) =>
                       <option key={index} value={application}>{application}</option>
@@ -132,8 +137,10 @@ class GraphPage extends React.Component {
                   </Field>
                   <ErrorMessage name="parameter" component="div" className="invalid-feedback" />
                 </div>
+                            <br></br>
                 <div className='form-group'>
                   <label htmlFor="selectedHostList">Hosts</label>
+                                &nbsp;&nbsp;
                   <Field name="selectedHostList" as="select" className={'form-control' + (errors.selectedHostList && touched.selectedHostList ? ' is-invalid' : '')} multiple>
                     {hostList.map((host, index) =>
                       <option key={index} value={host}>{host}</option>
@@ -141,8 +148,10 @@ class GraphPage extends React.Component {
                   </Field>
                   <ErrorMessage name="selectedHostList" component="div" className="invalid-feedback" />
                 </div>
+                            <br></br>
                 <div className='form-group'>
                   <label htmlFor="selectedMetricList">Metrics</label>
+                                &nbsp;&nbsp;
                   <Field name="selectedMetricList" as="select" className={'form-control' + (errors.selectedMetricList && touched.selectedMetricList ? ' is-invalid' : '')} multiple>
                     {metricList.map((metric, index) =>
                       <option key={index} value={metric}>{metric}</option>
@@ -151,6 +160,7 @@ class GraphPage extends React.Component {
                   <ErrorMessage name="selectedMetricList" component="div" className="invalid-feedback" />
                 </div>
               </div>
+                            <br></br>
               <div className="form-group">
                 <button type="submit" className="btn btn-primary mr-2">SELECT</button>
               </div>

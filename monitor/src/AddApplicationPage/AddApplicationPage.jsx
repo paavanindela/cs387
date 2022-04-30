@@ -16,7 +16,8 @@ class AddApplicationPage extends React.Component {
     render() {
         return (
             <div>
-                <h2>Add a Application</h2>
+                    <div style={{alignItems:'center',textAlign:'center'}} >
+                <h2>Add a Application</h2></div>
                 <Formik
                     initialValues={{
                         status: true,
@@ -48,7 +49,7 @@ class AddApplicationPage extends React.Component {
                             );
                     }}
                     render={({ errors, status, touched, isSubmitting }) => (
-                        <Form>
+                        <Form style={{alignItems:"center",textAlign:'center'}}>
                             {/* <div className="form-group">
                                 <label htmlFor="appid">AppId</label>
                                 <Field name="appid" type="text" className={'form-control' + (errors.hostname && touched.hostname ? ' is-invalid' : '')} />
@@ -56,20 +57,26 @@ class AddApplicationPage extends React.Component {
                             </div> */}
                             <div className="form-group">
                                 <label htmlFor="name">Name</label>
+                                &nbsp;&nbsp;
                                 <Field name="name" type="text" className={'form-control' + (errors.ip && touched.ip ? ' is-invalid' : '')} />
                                 <ErrorMessage name="name" component="div" className="invalid-feedback" />
                             </div>
+                            <br></br>
                             <div className="form-group">
                                 <label htmlFor="owner">Owner</label>
+                                &nbsp;&nbsp;
                                 <Field name="owner" type="text" className={'form-control' + (errors.mac && touched.mac ? ' is-invalid' : '')} />
                                 <ErrorMessage name="owner" component="div" className="invalid-feedback" />
                             </div>
+                            <br></br>
 
                             <div className="form-group">
                                 <label htmlFor="status">Status</label>
+                                &nbsp;&nbsp;
                                 <Field name="status" type="checkbox" className={'form-control' + (errors.influx && touched.influx ? ' is-invalid' : '')} />
                                 <ErrorMessage name="status" component="div" className="invalid-feedback" />
                             </div>
+                            <br></br>
                             
                             <div className="form-group">
                                 <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
@@ -86,7 +93,9 @@ class AddApplicationPage extends React.Component {
                     )}
                 />
                 <p></p>
+                    <div style={{alignItems:'center',textAlign:'center'}} >
                 <button onClick={() => history.back()} className="btn btn-secondary">Back</button>
+            </div>
             </div>
 
         );

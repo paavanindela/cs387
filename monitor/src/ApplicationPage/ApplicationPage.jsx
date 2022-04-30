@@ -53,7 +53,8 @@ class ApplicationPage extends React.Component{
         const { applications, loading, error } = this.state;
         return (
             <div>
-                <h1>Applications</h1>
+                    <div style={{alignItems:'center',textAlign:'center'}} >
+                <h1>Applications</h1></div>
                 {error && <div className="alert alert-danger">{error.message}</div>}
                 {loading && <div className="alert alert-info">Loading...</div>}
                 <table className="table table-striped">

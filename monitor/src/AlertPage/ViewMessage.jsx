@@ -31,7 +31,8 @@ class ViewMessages extends React.Component {
         }
         return (
             <div>
-                <h1>View Messages</h1>
+                    <div style={{alignItems:'center',textAlign:'center'}} >
+                <h1>View Messages</h1></div>
                 <ul>
                     {messages.map(message =>
                         <li key={message.id}>
