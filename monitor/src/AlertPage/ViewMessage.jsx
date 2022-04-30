@@ -25,7 +25,7 @@ class ViewMessages extends React.Component {
 
     render() {
         const { status, messages } = this.state;
-        console.log(messages);
+        // console.log(messages);
         if(!status && messages) {
             return <div>Loading...</div>
         }

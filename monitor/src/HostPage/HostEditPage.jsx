@@ -10,7 +10,7 @@ class HostEditPage extends React.Component{
         const pathname = window.location.pathname //returns the current url minus the domain name
         // parse url to get userID
         const hostID = pathname.split('/')[4];
-        console.log(hostID)
+        // console.log(hostID)
         this.state = {
             host: hostID,
             status: false

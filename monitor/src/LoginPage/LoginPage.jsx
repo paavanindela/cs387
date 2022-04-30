@@ -37,7 +37,7 @@ class LoginPage extends React.Component {
                         AuthService.login(username, password)
                             .then(
                                 user => {
-                                    console.log(user)
+                                    // console.log(user)
                                     history.push('/');
                                     window.location.reload();
                                 },

@@ -19,7 +19,7 @@ const getOneHost = (hostname) => {
 };
 
 const addHost = (hostname, ipaddress, macaddress, ostype, influx) => {
-    console.log(hostname, ipaddress, macaddress, ostype, influx);
+    // console.log(hostname, ipaddress, macaddress, ostype, influx);
     return axios.post(API_URL, {hostname, ipaddress, macaddress, ostype, influx}, {headers: authHeader()}).then(
         (response) => {
             return response.data;

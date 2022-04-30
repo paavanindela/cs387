@@ -27,7 +27,7 @@ async function findAllApp(hnamelist) {
 
 async function addApp( name, status, owner, hostname) {
     const rows = await pool.query(
-        "insert into application (name, status, owner, hostname) values ($1, $2, $3, $4)",
+        "insert into application values (DEFAULT ,$1, $2, $3, $4)",
         [name, status, owner, hostname]
     );
 

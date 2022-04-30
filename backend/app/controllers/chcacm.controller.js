@@ -16,11 +16,11 @@ exports.allChcacm = (req, res) => {
             res.status(500).send({message: "user not active"});
         }
         else{
-            Chcacm.getch(req.body.username).then(row1 => {
+            Chcacm.getch(req.params.username).then(row1 => {
                 output['hlist'] = row1.rows;
-                Chcacm.getca(req.body.username).then(row2 => {
+                Chcacm.getca(req.params.username).then(row2 => {
                     output['alist'] = row2.rows;
-                    Chcacm.getcm(req.body.username).then(row3 => {
+                    Chcacm.getcm(req.params.username).then(row3 => {
                         output["mlist"] = row3.rows;
                         res.status(200).send(output);
                     });

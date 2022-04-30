@@ -57,7 +57,7 @@ CREATE TABLE Application(
     name varchar(20) not null,
     status int not null check(status between 0 and 1),
     owner varchar(20) not null,
-    hostname varchar(20) not null,
+    hostname varchar(60) not null,
     
     FOREIGN KEY(hostname) references Host on delete CASCADE
 );

@@ -44,12 +44,22 @@ const getAllApps = () => {
         });
 }
 
+const getHostApp = (hnameList) => {
+    return axios.get(API_URL + '/host/all', {
+        headers: authHeader(),
+        params: {
+            hnamelist: hnameList
+        }
+    });
+}
+
 const applicationService = {
     getAnApp,
     modifyAnApp,
     deleteAnApp,
     addAnApp,
-    getAllApps
+    getAllApps,
+    getHostApp
 }
 
 export default applicationService;

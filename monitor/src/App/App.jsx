@@ -14,7 +14,7 @@ import { ApplicationPage } from '@/ApplicationPage';
 import { GraphPage } from '@/GraphPage';
 import { AddApplicationPage } from '@/AddApplicationPage';
 import { ViewMessages } from '../AlertPage/ViewMessage';
-import { AddThreshold,ViewThreshold } from '../AlertPage/ConfigurePage';
+import { AddThreshold,ViewThreshold,ModifyThreshold } from '../AlertPage/ConfigurePage';
 import { ControllerHostPage } from '@/ControllerHostPage';
 
 
@@ -83,8 +83,7 @@ class App extends React.Component {
                         <Route path='alerts' element={<ViewMessages />} />
                         <Route path='alerts/view' element={<ViewThreshold/>} />
                         <Route path='alerts/add' element={<AddThreshold/>}/>
-                        {/* <Route path='alerts/modify' element={<ModifyThreshold/>}/> */}
-                        {/* <Route path='alerts/delete' element={<DeleteThreshold/>}/> */}
+                        <Route path='alerts/modify/:hostname/:metricname' element={<ModifyThreshold/>}/>
                     </Route>
                     <Route path='/login' element={<LoginPage />} />
                     <Route path='/register' element={<RegisterPage />} />

@@ -22,7 +22,7 @@ class ControllerPage extends React.Component{
 
     render(){
         const { controllerList, isLoading } = this.state;
-        console.log(controllerList)
+        // console.log(controllerList)
         if(isLoading){
             return <div>
                 Loading...

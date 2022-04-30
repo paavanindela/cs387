@@ -3,14 +3,21 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { ComposedChart, Bar, Line, XAxis, YAxis, Tooltip, Legend, CartesianGrid, Area } from "recharts";
 import influxService from "../_services/influx.service";
+import HostService from "../_services/host.service";
+import UserService from "../_services/user.service";
+import { history } from "../_helpers/history";
+import applicationService from "../_services/application.service";
+import metricService from "../_services/metric.service";
+import { authHeader } from "../_helpers/auth-header";
 
 const colors = ["#1f77b4", "#ff7f0e", "#2ca02c", "#8884d8", "#ff4454"]
 
 class GraphPage extends React.Component {
   constructor(props) {
     super(props);
-
+    const currentUser = JSON.parse(localStorage.getItem('user'));
     this.state = {
+      username: currentUser.username,
       data: {},
       hostList: [
         "paavan-Inspiron-5584",
@@ -47,22 +54,53 @@ class GraphPage extends React.Component {
 
   componentDidMount() {
     // get data from influxservice 
+    UserService.getHosts(this.state.username).then(
+      data => {
+        // console.log(data)
+        this.setState({
+          hostList: data.hlist.map(
+            (host) => host.hostname
+          ),
+        }, () => {
+          applicationService.getHostApp(this.state.hostList).then(
+            data => {
+              // console.log(data)
+              this.setState({
+                applicationList: data.data.map(
+                  (app) => app.name
+                ),
+              });
+            }
+          );
+        });
+      }
+    );
+    metricService.getAlerts().then(
+      data => {
+        // console.log(data)
+        this.setState({
+          metricList: data.map(
+            (metric) => metric.name
+          ),
+        });
+      }
+    );
   }
 
   getData() {
-    console.log(this.state.selectedHostList,this.state.selectedMetricList)
+    // console.log(this.state.selectedHostList, this.state.selectedMetricList)
     influxService.getData(this.state.selectedHostList, this.state.selectedMetricList, this.state.startTime, this.state.endTime
       , this.state.parameter
     ).then(data => {
       this.setState({
         data: data,
         isLoaded: true
-      },() => console.log(this.state.data))
+      }, () => console.log(this.state.data))
     })
   }
 
   render() {
-    const { data, hostList,applicationList,metricList, startTime, endTime, parameter, selectedHostList,selectedMetricList,isLoaded} = this.state;
+    const { data, hostList, applicationList, metricList, startTime, endTime, parameter, selectedHostList, selectedMetricList, isLoaded } = this.state;
     let color = "#ffffff"
     return (
       // form component to select start and end times
