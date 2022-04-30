@@ -93,6 +93,7 @@ CREATE TABLE Message(
     msgId int not null,
     username varchar(20) not null,
     message text not null,
+    type int not null check(type between 0 and 1),
     PRIMARY KEY(msgId),
     FOREIGN KEY(username) references Controller on delete CASCADE
 );

@@ -20,35 +20,21 @@ class GraphPage extends React.Component {
       username: currentUser.username,
       data: {},
       hostList: [
-        "paavan-Inspiron-5584",
-        "aquib-HP-Laptop-15-bs0xx",
-        "rsr-pc",
-        "chaithanya-G3-3579",
+
       ],
       applicationList: [
-        "cpu",
-        "mem",
-        "postgresql"
+
       ],
       metricList: [
-        "usage_system",
-        "usage_iowait",
-        "usage_user",
-        "available_percent",
-        "used_percent",
-        "active",
-        "cached",
-        "tup_returned",
-        "tup_fetched",
-        "tup_inserted",
-        "tup_updated",
+
       ],
       startTime: '-30d',
       endTime: '-20d',
       parameter: 'cpu',
       selectedHostList: [],
       selectedMetricList: [],
-      isLoaded: false
+      isLoaded: false,
+      showForm: true
     };
   }
 
@@ -100,14 +86,14 @@ class GraphPage extends React.Component {
   }
 
   render() {
-    const { data, hostList, applicationList, metricList, startTime, endTime, parameter, selectedHostList, selectedMetricList, isLoaded } = this.state;
+    const { data, hostList, applicationList, metricList, startTime, endTime, parameter, selectedHostList, selectedMetricList, isLoaded, showForm } = this.state;
     let color = "#ffffff"
     return (
       // form component to select start and end times
       <div>
                     <div style={{alignItems:'center',textAlign:'center'}} >
         <h1> GRAPHS </h1></div>
-        <Formik
+        {showForm && <Formik
           initialValues={{
             startTime: '-30d',
             endTime: '-20d',
@@ -204,7 +190,7 @@ class GraphPage extends React.Component {
               </div>
             </Form>
           )}
-        />
+        />}
 
         {isLoaded &&
           <div>{parameter}</div> &&
@@ -235,6 +221,7 @@ class GraphPage extends React.Component {
                 return <div key={index}></div>;
             }
           )}
+          <button onClick={() => this.setState({ showForm: true })}>Reload</button>
       </div>
     );
   }
